@@ -4,6 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Worksheet: Food & Drinks – Adverbs of Frequency</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400..700&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #fff8ec;
@@ -22,7 +25,7 @@
   [hidden] { display: none !important; }
   body {
     margin: 0;
-    font-family: "Trebuchet MS", "Segoe UI", Arial, sans-serif;
+    font-family: "Nunito", "Trebuchet MS", "Segoe UI", Arial, sans-serif;
     background: var(--bg);
     color: var(--ink);
     line-height: 1.5;
@@ -165,18 +168,50 @@
   .finish .trophy { font-size: 4rem; display: block; animation: bounce 1s ease-in-out infinite; }
   footer { text-align: center; color: var(--muted); margin-top: 30px; font-size: .9rem; }
 
+  h1, h2, h3, button, .scale div, .num, .total, .who { font-family: "Fredoka", "Nunito", "Trebuchet MS", sans-serif; }
+  button { font-weight: 600; letter-spacing: .01em; }
+
+  /* cookie gate */
+  #cookie-gate { cursor: default; }
+  #cookie-gate .stage { position: relative; width: 150px; height: 150px; margin: 8px auto; }
+  #cookie-gate .cookie {
+    position: relative; width: 150px; height: 150px; padding: 0; background: transparent;
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  }
+  #cookie-gate .cookie:focus-visible { outline: 4px solid var(--accent); outline-offset: 2px; }
+  #cookie-gate .cookie .emo { font-size: 7.5rem; line-height: 1; }
+  #cookie-gate .cookie svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+  #cookie-gate .cookie path {
+    fill: none; stroke: #3b1f10; stroke-width: 3.5; stroke-linecap: round; stroke-linejoin: round;
+    stroke-dasharray: 100; stroke-dashoffset: 100; transition: stroke-dashoffset .25s;
+  }
+  #cookie-gate .cookie.shake { animation: shake .35s; }
+  #cookie-gate .count { font-size: 1.5rem; font-weight: bold; color: var(--ink); margin: 4px 0 10px; }
+  #cookie-gate .half {
+    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+    font-size: 7.5rem; line-height: 1; transition: transform .9s cubic-bezier(.2,.8,.3,1), opacity .9s;
+  }
+  #cookie-gate .half.l { clip-path: inset(0 50% 0 0); }
+  #cookie-gate .half.r { clip-path: inset(0 0 0 50%); }
+  #cookie-gate .half.l.apart { transform: translate(-46px, 22px) rotate(-22deg); }
+  #cookie-gate .half.r.apart { transform: translate(46px, 22px) rotate(22deg); }
+  @keyframes shake { 0%,100% { transform: rotate(0) scale(1); } 20% { transform: rotate(-12deg) scale(1.08); } 50% { transform: rotate(10deg) scale(1.1); } 80% { transform: rotate(-6deg) scale(1.04); } }
+  @media (prefers-reduced-motion: reduce) {
+    #cookie-gate .cookie.shake, #cookie-gate .half { animation: none; transition: none; }
+  }
+
   /* celebration */
-  #cheer {
+  #cheer, #cookie-gate {
     position: fixed; inset: 0; display: flex; align-items: center; justify-content: center;
     background: rgba(30,25,40,.35); z-index: 50; cursor: pointer; padding: 16px;
   }
-  #cheer .box {
+  #cheer .box, #cookie-gate .box {
     background: #fff; border-radius: 28px; padding: 24px 34px 22px; text-align: center;
     box-shadow: 0 10px 0 rgba(0,0,0,.18); max-width: 420px; animation: pop .45s cubic-bezier(.2,1.6,.4,1);
   }
   #cheer .big { font-size: 6rem; line-height: 1.1; display: block; }
-  #cheer h3 { margin: 6px 0 2px; font-size: 1.6rem; color: var(--accent-dark); }
-  #cheer p { margin: 2px 0; color: var(--muted); }
+  #cheer h3, #cookie-gate h3 { margin: 6px 0 2px; font-size: 1.6rem; color: var(--accent-dark); }
+  #cheer p, #cookie-gate p { margin: 2px 0; color: var(--muted); }
   .a-bounce { animation: bounce .7s ease-in-out infinite; }
   .a-spin { animation: spin 1.1s ease-in-out infinite; }
   .a-wiggle { animation: wiggle .5s ease-in-out infinite; }
@@ -202,7 +237,7 @@
   }
   @media print {
     body { background: #fff; font-size: 14px; }
-    .actions button, .no-print, #cheer, .confetti { display: none !important; }
+    .actions button, .no-print, #cheer, #cookie-gate, .confetti { display: none !important; }
     section.card { break-inside: avoid; border-color: #bbb; }
     header.hero { box-shadow: none; color: #000; background: #fff; border: 2px solid #000; }
   }
@@ -215,26 +250,25 @@
     <h1>🍎 Food &amp; Drinks 🥛<br>How often do you…?</h1>
     <p>Adverbs of frequency: always · usually · often · sometimes · rarely · never</p>
     <div class="welcome">
-      <p class="es">¡Bienvenidos, mis queridos alumnos de 5°B! Estas son actividades para hacer de a dos. 👫</p>
-      <p class="en">Welcome, my dear students of 5°B! These are activities to do in pairs.</p>
+      <p class="es">Welcome, my dear students of 5°B! These are activities to do in pairs. 👫</p>
     </div>
   </header>
 
   <!-- REGISTRATION -->
   <section class="card" id="register">
-    <h2>✏️ Before we start · Antes de empezar</h2>
+    <h2>✏️ Before we start</h2>
     <form id="reg-form" novalidate>
       <div class="field">
-        <label class="lbl" for="reg-name">Full name · Nombre completo</label>
-        <input id="reg-name" type="text" autocomplete="off" placeholder="e.g. María López">
-        <small>Si lo hacen de a dos, escriban los dos nombres. · If you work in pairs, write both names.</small>
+        <label class="lbl" for="reg-name">Full name</label>
+        <input id="reg-name" type="text" autocomplete="off" placeholder="e.g. Emma Smith">
+        <small>If you work in pairs, write both names.</small>
       </div>
       <div class="field">
-        <span class="lbl" id="color-lbl">Favorite color · Color favorito</span>
+        <span class="lbl" id="color-lbl">Favorite color</span>
         <div class="swatches" role="radiogroup" aria-labelledby="color-lbl" id="swatches"></div>
       </div>
       <div class="reg-error" id="reg-error" role="alert"></div>
-      <button type="submit" class="big">Let's go! · ¡Vamos! 🚀</button>
+      <button type="submit" class="big">Let's go! 🚀</button>
     </form>
   </section>
 
@@ -263,8 +297,7 @@
       ✅ <i>after</i> the verb <b>to be</b> (am / is / are): He is <mark>usually</mark> hungry. / We are <mark>often</mark> thirsty.<br>
       ❓ Question: <b>How often</b> do you drink milk? → I <mark>drink</mark> milk <mark>every day</mark>. / I <mark>sometimes</mark> drink milk.
     </div>
-    <p class="instr" style="margin-top:12px">📨 When you finish an activity, press <b>Send</b> to see the correct answers!<br>
-    Cuando terminen una actividad, toquen <b>Send</b> para ver las respuestas correctas.</p>
+    <p class="instr" style="margin-top:12px">📨 When you finish an activity, press <b>Send</b> to see the correct answers!</p>
   </section>
 
   <!-- 1 READING -->
@@ -355,7 +388,7 @@
     <span class="trophy">🏆</span>
     <h2 id="finish-title"></h2>
     <p id="finish-score"></p>
-    <p class="instr">Don't forget activities 7 and 8! · ¡No se olviden de las actividades 7 y 8!</p>
+    <p class="instr">Don't forget activities 7 and 8!</p>
   </section>
 
   </div><!-- /app -->
@@ -364,6 +397,7 @@
 </div>
 
 <div id="cheer" hidden role="status" aria-live="polite"></div>
+<div id="cookie-gate" hidden role="dialog" aria-modal="true" aria-label="Break the cookie to send"></div>
 
 <script>
 const ADV = ['always', 'usually', 'often', 'sometimes', 'rarely', 'never'];
@@ -459,11 +493,11 @@ document.getElementById('reg-form').addEventListener('submit', ev => {
   const name = document.getElementById('reg-name').value.trim().replace(/\s+/g, ' ');
   const picked = document.querySelector('input[name=color]:checked');
   if (name.split(' ').length < 2 || name.length < 5) {
-    err.textContent = 'Write your full name (name and surname). · Escriban su nombre completo (nombre y apellido).';
+    err.textContent = 'Write your full name (name and surname).';
     return;
   }
   if (!picked) {
-    err.textContent = 'Choose your favorite color. · Elijan su color favorito.';
+    err.textContent = 'Choose your favorite color.';
     return;
   }
   err.textContent = '';
@@ -478,7 +512,7 @@ document.getElementById('reg-form').addEventListener('submit', ev => {
   document.getElementById('register').hidden = true;
   document.getElementById('app').hidden = false;
   window.scrollTo({ top: 0 });
-  celebrate({ e: '👋', a: 'wiggle', title: 'Hello, ' + firstName() + '!', sub: '¡Hola! Let\'s start! · ¡Empecemos!' });
+  celebrate({ e: '👋', a: 'wiggle', title: 'Hello, ' + firstName() + '!', sub: 'Let\'s start!' });
 });
 
 function applyColor(c) {
@@ -547,11 +581,23 @@ function send(id) {
   if (empty.length) {
     empty.forEach(li => li.classList.add('missing'));
     scoreEl.classList.add('warn');
-    scoreEl.textContent = 'Answer all the questions first! · ¡Respondan todas las preguntas primero!';
+    scoreEl.textContent = 'Answer all the questions first!';
     empty[0].scrollIntoView({ block: 'center', behavior: reducedMotion ? 'auto' : 'smooth' });
     return;
   }
 
+  if (!cookieDone) {
+    cookieGate(() => { cookieDone = true; grade(id); });
+    return;
+  }
+  grade(id);
+}
+
+function grade(id) {
+  const cfg = ACTS[id];
+  const sec = document.getElementById(id);
+  const scoreEl = sec.querySelector('.score');
+  const lis = [...sec.querySelectorAll('ol.items > li')];
   let right = 0;
   lis.forEach((li, i) => {
     const ok = cfg.items[i].a.map(norm).includes(norm(getValue(li)));
@@ -567,7 +613,7 @@ function send(id) {
   scoreEl.textContent = `${right} / ${lis.length}`;
   const btn = sec.querySelector('[data-check]');
   btn.disabled = true;
-  btn.textContent = 'Sent ✔ · Enviado';
+  btn.textContent = 'Sent ✔';
   updateTotal();
 
   const allDone = Object.keys(scores).length === Object.keys(ACTS).length;
@@ -584,9 +630,55 @@ function updateTotal() {
 function showFinish() {
   const all = Object.keys(ACTS).reduce((n, id) => n + ACTS[id].items.length, 0);
   const got = Object.values(scores).reduce((n, s) => n + s.right, 0);
-  document.getElementById('finish-title').textContent = `Well done, ${student.name}! · ¡Bien hecho!`;
+  document.getElementById('finish-title').textContent = `Well done, ${student.name}!`;
   document.getElementById('finish-score').textContent = `Your score: ${got} / ${all}`;
   document.getElementById('finish').hidden = false;
+}
+
+/* ---------- cookie gate (first Send only) ---------- */
+let cookieDone = false;
+const CRACK_PATH = 'M50 14 L42 30 L58 44 L43 60 L57 74 L50 88';
+
+function cookieGate(onDone) {
+  const gate = document.getElementById('cookie-gate');
+  gate.textContent = '';
+  const box = el('div', { class: 'box' });
+  const title = el('h3'); title.textContent = 'Last step!';
+  const en = el('p'); en.textContent = 'Click the cookie 5 times to send your answers!';
+  const stage = el('div', { class: 'stage' });
+  const cookie = el('button', { type: 'button', class: 'cookie', 'aria-label': 'Cookie' },
+    `<span class="emo">🍪</span><svg viewBox="0 0 100 100" aria-hidden="true"><path d="${CRACK_PATH}" pathLength="100"/></svg>`);
+  stage.appendChild(cookie);
+  const count = el('p', { class: 'count' }); count.textContent = '0 / 5';
+  const back = el('button', { type: 'button', class: 'secondary' }); back.textContent = 'Back';
+  box.append(title, en, stage, count, back);
+  gate.appendChild(box);
+  gate.hidden = false;
+  cookie.focus();
+
+  let clicks = 0;
+  const crack = cookie.querySelector('path');
+  cookie.addEventListener('click', () => {
+    clicks++;
+    count.textContent = clicks + ' / 5';
+    crack.style.strokeDashoffset = 100 - clicks * 20;
+    if (clicks < 5) {
+      cookie.classList.remove('shake');
+      void cookie.offsetWidth;
+      cookie.classList.add('shake');
+      return;
+    }
+    stage.textContent = '';
+    const l = el('span', { class: 'half l' }, '🍪');
+    const r = el('span', { class: 'half r' }, '🍪');
+    stage.append(l, r);
+    requestAnimationFrame(() => requestAnimationFrame(() => { l.classList.add('apart'); r.classList.add('apart'); }));
+    title.textContent = 'CRACK! 🍪';
+    back.hidden = true;
+    en.textContent = 'Sending your answers…';
+    setTimeout(() => { gate.hidden = true; onDone(); }, 1300);
+  });
+  back.addEventListener('click', () => { gate.hidden = true; });
 }
 
 /* ---------- celebration ---------- */
@@ -599,10 +691,10 @@ const CHEERS = [
 function cheerFor(right, total, allDone) {
   const pick = CHEERS[Math.floor(Math.random() * CHEERS.length)];
   const n = firstName();
-  if (allDone) return { ...pick, e: '🏆', a: 'bounce', title: `ALL DONE, ${n}!`, sub: '¡Terminaron todo! · You finished everything!' };
-  if (right === total) return { ...pick, title: `PERFECT, ${n}!`, sub: '¡PERFECTO! · 100%' };
-  if (right / total >= 0.7) return { ...pick, title: `Great job, ${n}!`, sub: '¡Muy bien! · Check the answers below.' };
-  return { ...pick, title: `Nice try, ${n}!`, sub: '¡Buen intento! · Look at the correct answers below.' };
+  if (allDone) return { ...pick, e: '🏆', a: 'bounce', title: `ALL DONE, ${n}!`, sub: 'You finished everything!' };
+  if (right === total) return { ...pick, title: `PERFECT, ${n}!`, sub: '100% correct!' };
+  if (right / total >= 0.7) return { ...pick, title: `Great job, ${n}!`, sub: 'Check the answers below.' };
+  return { ...pick, title: `Nice try, ${n}!`, sub: 'Look at the correct answers below.' };
 }
 
 function confetti() {
