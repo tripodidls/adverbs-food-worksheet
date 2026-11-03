@@ -195,9 +195,98 @@
   #cookie-gate .half.r { clip-path: inset(0 0 0 50%); }
   #cookie-gate .half.l.apart { transform: translate(-46px, 22px) rotate(-22deg); }
   #cookie-gate .half.r.apart { transform: translate(46px, 22px) rotate(22deg); }
+  #cookie-gate .cookie path { filter: drop-shadow(0 0 1.5px #fff); }
+  #cookie-gate .half.q1 { clip-path: inset(0 50% 50% 0); }
+  #cookie-gate .half.q2 { clip-path: inset(0 0 50% 50%); }
+  #cookie-gate .half.q3 { clip-path: inset(50% 50% 0 0); }
+  #cookie-gate .half.q4 { clip-path: inset(50% 0 0 50%); }
+  #cookie-gate .half.q1.apart { transform: translate(-44px, -34px) rotate(-20deg); }
+  #cookie-gate .half.q2.apart { transform: translate(44px, -34px) rotate(20deg); }
+  #cookie-gate .half.q3.apart { transform: translate(-40px, 44px) rotate(-28deg); }
+  #cookie-gate .half.q4.apart { transform: translate(40px, 44px) rotate(28deg); }
+
+  /* soccer */
+  #cookie-gate .stage.pitch {
+    width: 100%; max-width: 320px; height: 130px; border-radius: 14px; overflow: hidden;
+    background: linear-gradient(#bfe6ff 0 58%, #5cb85c 58%);
+  }
+  #cookie-gate .goal { position: absolute; right: 2px; bottom: 14px; font-size: 3.6rem; line-height: 1; }
+  #cookie-gate .goal.goal-hit { animation: net .35s 3; transform-origin: 80% 80%; }
+  #cookie-gate .player {
+    position: absolute; left: 4px; bottom: 6px; width: 64px; height: 90px; padding: 0;
+    background: transparent; border-radius: 12px;
+  }
+  #cookie-gate .player svg { width: 100%; height: 100%; display: block; }
+  #cookie-gate .player:focus-visible { outline: 3px solid var(--accent); }
+  #cookie-gate .player:disabled { opacity: 1; }
+  #cookie-gate .kickleg { transform-origin: 46px 72px; }
+  #cookie-gate .player.kick .kickleg { animation: kickleg .6s ease-in-out forwards; }
+  #cookie-gate .ball { position: absolute; left: 70px; bottom: 10px; font-size: 1.7rem; line-height: 1; }
+  #cookie-gate .ball.shot { animation: shot .95s ease-out forwards; }
+  @keyframes kickleg {
+    0% { transform: rotate(0); } 35% { transform: rotate(40deg); } 70% { transform: rotate(-75deg); } 100% { transform: rotate(-50deg); }
+  }
+  @keyframes shot {
+    0% { transform: translate(0, 0) rotate(0); }
+    50% { transform: translate(calc(var(--dx) * .5), -62px) rotate(360deg); }
+    100% { transform: translate(var(--dx), -6px) rotate(720deg) scale(.85); }
+  }
+  @keyframes net { 0%,100% { transform: scale(1); } 50% { transform: scale(1.18, .92); } }
+
+  /* snake */
+  #cookie-gate .snake { width: 190px; height: 160px; padding: 0; background: transparent; border-radius: 16px; }
+  #cookie-gate .snake svg { width: 100%; height: 100%; display: block; }
+  #cookie-gate .snake:focus-visible { outline: 4px solid var(--accent); }
+  #cookie-gate .snake.shake { animation: shake .35s; }
+  #cookie-gate .snake .tongue { transform-origin: 100px 56px; transform: scaleY(0); transition: transform .2s; }
+  #cookie-gate .snake.out .tongue { transform: scaleY(1); animation: flick .22s ease-in-out infinite alternate; }
+  @keyframes flick { from { transform: scaleY(1) rotate(-5deg); } to { transform: scaleY(.82) rotate(5deg); } }
+
+  /* egg, balloon, pizza, rocket */
+  #cookie-gate .reveal {
+    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+    font-size: 5.5rem; line-height: 1; animation: pop .6s .25s cubic-bezier(.2,1.6,.4,1) both;
+  }
+  #cookie-gate .balloon .emo { font-size: 4.5rem; transition: transform .25s; }
+  #cookie-gate .pizza .emo {
+    -webkit-mask-image: conic-gradient(transparent 0 var(--e, 0deg), #000 var(--e, 0deg) 360deg);
+    mask-image: conic-gradient(transparent 0 var(--e, 0deg), #000 var(--e, 0deg) 360deg);
+    transition: none;
+  }
+  #cookie-gate .stage.sky {
+    width: 100%; max-width: 240px; height: 150px; border-radius: 14px; overflow: hidden;
+    display: flex; align-items: flex-end; justify-content: center;
+    background:
+      radial-gradient(circle at 18% 28%, #fff 0 1.5px, transparent 2.5px),
+      radial-gradient(circle at 72% 18%, #fff 0 1.5px, transparent 2.5px),
+      radial-gradient(circle at 86% 62%, #fff 0 1.2px, transparent 2.2px),
+      radial-gradient(circle at 34% 70%, #fff 0 1px, transparent 2px),
+      linear-gradient(#0b1d51, #274a9c);
+  }
+  #cookie-gate .rocket { width: 90px; height: 90px; padding: 0; background: transparent; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+  #cookie-gate .rocket .emo { font-size: 4.6rem; line-height: 1; }
+  #cookie-gate .rocket:focus-visible { outline: 3px solid #fff; }
+  #cookie-gate .rocket.shake { animation: shake .35s; }
+  #cookie-gate .rocket.launch { animation: liftoff 1.3s ease-in forwards; }
+  @keyframes liftoff {
+    0% { transform: translate(0, 0); } 15% { transform: translate(0, 8px); }
+    100% { transform: translate(150px, -250px) scale(.5); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    #cookie-gate .reveal { animation: none; }
+    #cookie-gate .rocket.shake { animation: none; }
+    #cookie-gate .rocket.launch { animation: none; transform: translate(150px, -250px) scale(.5); }
+  }
+
+  section.card.unlocked { animation: unlock 1.2s ease-out; }
+  @keyframes unlock { 0% { box-shadow: 0 0 0 0 var(--accent); } 40% { box-shadow: 0 0 0 10px var(--accent); } 100% { box-shadow: 0 0 0 0 transparent; } }
+
   @keyframes shake { 0%,100% { transform: rotate(0) scale(1); } 20% { transform: rotate(-12deg) scale(1.08); } 50% { transform: rotate(10deg) scale(1.1); } 80% { transform: rotate(-6deg) scale(1.04); } }
   @media (prefers-reduced-motion: reduce) {
-    #cookie-gate .cookie.shake, #cookie-gate .half { animation: none; transition: none; }
+    #cookie-gate .cookie.shake, #cookie-gate .snake.shake, #cookie-gate .snake.out .tongue,
+    #cookie-gate .half, section.card.unlocked, #cookie-gate .goal.goal-hit { animation: none; transition: none; }
+    #cookie-gate .player.kick .kickleg { animation: none; transform: rotate(-50deg); }
+    #cookie-gate .ball.shot { animation: none; transform: translate(var(--dx), -6px); }
   }
 
   /* celebration */
@@ -297,13 +386,33 @@
       ✅ <i>after</i> the verb <b>to be</b> (am / is / are): He is <mark>usually</mark> hungry. / We are <mark>often</mark> thirsty.<br>
       ❓ Question: <b>How often</b> do you drink milk? → I <mark>drink</mark> milk <mark>every day</mark>. / I <mark>sometimes</mark> drink milk.
     </div>
-    <p class="instr" style="margin-top:12px">📨 When you finish an activity, press <b>Send</b> to see the correct answers!</p>
+    <p class="instr" style="margin-top:12px">📨 When you finish an activity, press <b>Send</b> to see the correct answers.<br>
+    🔓 The activities go from easy to hard. Finish each one (at least <b>half</b> right in the quizzes), then win a mini-game to unlock the next activity!</p>
   </section>
 
-  <!-- 1 READING -->
-  <section class="card" id="a1">
-    <h2><span class="num">1</span> Reading: Mia's food week</h2>
-    <p class="instr">Read the text. Then answer the questions: <b>How often…?</b> Choose the correct adverb.</p>
+  <!-- Activities are listed from easiest to hardest. The numbers are filled in by the script. -->
+
+  <!-- VOCAB -->
+  <section class="card" id="a6">
+    <h2><span class="num"></span> Food &amp; drinks words</h2>
+    <p class="instr">Look at the pictures and write the word. Use the word bank.</p>
+    <div class="bank" id="bank6"></div>
+    <ol class="items grid"></ol>
+    <div class="actions"><button data-check="a6">Send ✔</button><span class="score"></span></div>
+  </section>
+
+  <!-- FILL THE GAP -->
+  <section class="card" id="a3">
+    <h2><span class="num"></span> Choose the adverb</h2>
+    <p class="instr">Read the clue in brackets and choose the best adverb for each sentence.</p>
+    <ol class="items"></ol>
+    <div class="actions"><button data-check="a3">Send ✔</button><span class="score"></span></div>
+  </section>
+
+  <!-- READING + TRUE / FALSE -->
+  <section class="card" id="a2">
+    <h2><span class="num"></span> Reading: True or False?</h2>
+    <p class="instr">Read Mia's text. Are the sentences <b>true</b> or <b>false</b>?</p>
     <div class="reading">
       <h3>🍽️ Mia's food week</h3>
       <p>Hi! My name is Mia and I'm eleven years old. I live with my mum, my dad and my little brother, Sam.
@@ -315,65 +424,48 @@
       In the evening, I <mark>sometimes</mark> drink hot chocolate before bed.</p>
     </div>
     <ol class="items"></ol>
-    <div class="actions"><button data-check="a1">Send ✔</button><span class="score"></span></div>
-  </section>
-
-  <!-- 2 TRUE / FALSE -->
-  <section class="card" id="a2">
-    <h2><span class="num">2</span> True or False?</h2>
-    <p class="instr">Look at Mia's text again. Are the sentences <b>true</b> or <b>false</b>?</p>
-    <ol class="items"></ol>
     <div class="actions"><button data-check="a2">Send ✔</button><span class="score"></span></div>
   </section>
 
-  <!-- 3 FILL THE GAP -->
-  <section class="card" id="a3">
-    <h2><span class="num">3</span> Choose the adverb</h2>
-    <p class="instr">Read the clue in brackets and choose the best adverb for each sentence.</p>
+  <!-- READING + HOW OFTEN -->
+  <section class="card" id="a1">
+    <h2><span class="num"></span> Reading: How often…?</h2>
+    <p class="instr">Read Mia's text again. Then answer the questions: <b>How often…?</b> Choose the correct adverb.</p>
     <ol class="items"></ol>
-    <div class="actions"><button data-check="a3">Send ✔</button><span class="score"></span></div>
+    <div class="actions"><button data-check="a1">Send ✔</button><span class="score"></span></div>
   </section>
 
-  <!-- 4 WORD ORDER (CHOICE) -->
+  <!-- WORD ORDER (CHOICE) -->
   <section class="card" id="a4">
-    <h2><span class="num">4</span> Where does it go?</h2>
+    <h2><span class="num"></span> Where does it go?</h2>
     <p class="instr">Which sentence has the adverb in the correct place? Remember: <b>before</b> a normal verb, <b>after</b> <i>am / is / are</i>.</p>
     <ol class="items"></ol>
     <div class="actions"><button data-check="a4">Send ✔</button><span class="score"></span></div>
   </section>
 
-  <!-- 5 UNSCRAMBLE -->
+  <!-- UNSCRAMBLE -->
   <section class="card" id="a5">
-    <h2><span class="num">5</span> Put the words in order</h2>
+    <h2><span class="num"></span> Put the words in order</h2>
     <p class="instr">Write the sentence. Don't forget the capital letter and the full stop (.) or question mark (?).</p>
     <ol class="items"></ol>
     <div class="actions"><button data-check="a5">Send ✔</button><span class="score"></span></div>
   </section>
 
-  <!-- 6 VOCAB -->
-  <section class="card" id="a6">
-    <h2><span class="num">6</span> Food &amp; drinks words</h2>
-    <p class="instr">Look at the pictures and write the word. Use the word bank.</p>
-    <div class="bank" id="bank6"></div>
-    <ol class="items grid"></ol>
-    <div class="actions"><button data-check="a6">Send ✔</button><span class="score"></span></div>
-  </section>
-
-  <!-- 7 SURVEY -->
+  <!-- SURVEY -->
   <section class="card" id="a7">
-    <h2><span class="num">7</span> Class survey: How often…?</h2>
-    <p class="instr">Fill in the table about <b>you</b>. Then ask your partner: <i>"How often do you eat…?"</i> and complete the last column.</p>
+    <h2><span class="num"></span> Class survey: How often…?</h2>
+    <p class="instr">Fill in the table about <b>you</b>. Then ask your partner: <i>"How often do you eat…?"</i> and complete the last column. Fill in the whole table, then press Send.</p>
     <table class="survey">
       <thead><tr><th>How often do you…?</th><th>Me</th><th>My partner</th></tr></thead>
       <tbody id="survey-body"></tbody>
     </table>
-    <p class="instr no-print" style="margin-top:10px">This activity is not marked. Speak with your partner! 🗣️</p>
+    <div class="actions"><button data-check="a7">Send ✔</button><span class="score"></span></div>
   </section>
 
-  <!-- 8 WRITING -->
+  <!-- WRITING -->
   <section class="card" id="a8">
-    <h2><span class="num">8</span> Write about you</h2>
-    <p class="instr">Write <b>5 sentences</b> about what you eat and drink. Use a different adverb in each sentence.</p>
+    <h2><span class="num"></span> Write about you</h2>
+    <p class="instr">Write <b>5 sentences</b> about what you eat and drink. Use at least <b>3 different adverbs</b> of frequency.</p>
     <ul class="stems">
       <li>For breakfast, I … have / eat / drink …</li>
       <li>At school, I … eat …</li>
@@ -382,13 +474,14 @@
       <li>I … eat … (fruit / vegetables / sweets / fast food)</li>
     </ul>
     <textarea placeholder="Write here…"></textarea>
+    <div class="actions"><button data-check="a8">Send ✔</button><span class="score"></span></div>
   </section>
 
   <section class="card finish" id="finish" hidden>
     <span class="trophy">🏆</span>
     <h2 id="finish-title"></h2>
     <p id="finish-score"></p>
-    <p class="instr">Don't forget activities 7 and 8!</p>
+    <p class="instr">You finished all 8 activities! Show this screen to your teacher.</p>
   </section>
 
   </div><!-- /app -->
@@ -570,13 +663,52 @@ function getValue(li) {
   return t ? t.value : '';
 }
 
+const PASS_RATIO = 0.5;
+
+// Activities from easiest to hardest. The ids are the ones used in the HTML / ACTS.
+const ORDER = ['a6', 'a3', 'a2', 'a1', 'a4', 'a5', 'a7', 'a8'];
+// One mini-game per activity, in the same order. Finishing it unlocks the next activity.
+const GAME_ORDER = ['cookie', 'broccoli', 'soccer', 'snake', 'egg', 'balloon', 'pizza', 'rocket'];
+const FLOW = {};
+ORDER.forEach((id, i) => {
+  FLOW[id] = { game: GAME_ORDER[i], unlock: ORDER[i + 1] ? [ORDER[i + 1]] : [] };
+});
+const GAME_LABEL = {
+  cookie: 'Break the cookie 🍪', broccoli: 'Break the broccoli 🥦', soccer: 'Score a goal ⚽',
+  snake: 'Wake up the snake 🐍', egg: 'Hatch the egg 🥚', balloon: 'Pop the balloon 🎈',
+  pizza: 'Eat the pizza 🍕', rocket: 'Launch the rocket 🚀',
+};
+const passed = new Set();
+
+// Activities that are not marked: they only have to be completed properly.
+const FREE = {
+  a7(sec) {
+    const missing = [...sec.querySelectorAll('select')].filter(s => !s.value);
+    if (missing.length) return { ok: false, msg: 'Fill in the whole table first: you and your partner!', focus: missing[0] };
+    return { ok: true, msg: 'Table complete ✔' };
+  },
+  a8(sec) {
+    const area = sec.querySelector('textarea');
+    const sentences = area.value.split(/[.!?\n]+/).map(s => s.trim()).filter(s => s.split(/\s+/).length >= 3);
+    const used = ADV.filter(a => new RegExp('\\b' + a + '\\b', 'i').test(area.value));
+    if (sentences.length < 5 || used.length < 3) {
+      return {
+        ok: false, focus: area,
+        msg: `You wrote ${sentences.length} sentence(s) with ${used.length} different adverb(s). You need at least 5 sentences and 3 different adverbs of frequency.`,
+      };
+    }
+    return { ok: true, msg: `Great writing! ${sentences.length} sentences, ${used.length} different adverbs ✔` };
+  },
+};
+
 function send(id) {
+  if (FREE[id]) return sendFree(id);
   const cfg = ACTS[id];
   const sec = document.getElementById(id);
   const scoreEl = sec.querySelector('.score');
   const lis = [...sec.querySelectorAll('ol.items > li')];
 
-  lis.forEach(li => li.classList.remove('missing'));
+  lis.forEach(li => li.classList.remove('missing', 'ok', 'bad'));
   const empty = lis.filter(li => !norm(getValue(li)));
   if (empty.length) {
     empty.forEach(li => li.classList.add('missing'));
@@ -586,39 +718,72 @@ function send(id) {
     return;
   }
 
-  if (!cookieDone) {
-    cookieGate(() => { cookieDone = true; grade(id); });
+  const oks = lis.map((li, i) => cfg.items[i].a.map(norm).includes(norm(getValue(li))));
+  const right = oks.filter(Boolean).length;
+  const need = Math.ceil(lis.length * PASS_RATIO);
+
+  // not enough right answers: show which ones are wrong, but not the solutions
+  if (right < need) {
+    lis.forEach((li, i) => li.classList.add(oks[i] ? 'ok' : 'bad'));
+    scoreEl.classList.add('warn');
+    scoreEl.textContent = `You got ${right} / ${lis.length}. You need at least ${need} to continue. Fix the red answers and press Send again!`;
     return;
   }
-  grade(id);
-}
 
-function grade(id) {
-  const cfg = ACTS[id];
-  const sec = document.getElementById(id);
-  const scoreEl = sec.querySelector('.score');
-  const lis = [...sec.querySelectorAll('ol.items > li')];
-  let right = 0;
   lis.forEach((li, i) => {
-    const ok = cfg.items[i].a.map(norm).includes(norm(getValue(li)));
-    if (ok) right++;
-    li.classList.add(ok ? 'ok' : 'bad', 'done');
+    li.classList.add(oks[i] ? 'ok' : 'bad', 'done');
     const key = li.querySelector('.key');
-    key.textContent = (ok ? '✓ Correct! ' : '✗ Correct answer: ') + key.dataset.text;
+    key.textContent = (oks[i] ? '✓ Correct! ' : '✗ Correct answer: ') + key.dataset.text;
     li.querySelectorAll('select, input').forEach(x => x.disabled = true);
   });
 
   scores[id] = { right, total: lis.length };
   scoreEl.classList.remove('warn');
   scoreEl.textContent = `${right} / ${lis.length}`;
-  const btn = sec.querySelector('[data-check]');
-  btn.disabled = true;
-  btn.textContent = 'Sent ✔';
   updateTotal();
+  passed.add(id);
+  sec.querySelector('[data-check]').textContent = GAME_LABEL[FLOW[id].game];
+  playGame(id);
+}
 
-  const allDone = Object.keys(scores).length === Object.keys(ACTS).length;
-  celebrate(cheerFor(right, lis.length, allDone));
-  if (allDone) showFinish();
+function sendFree(id) {
+  const sec = document.getElementById(id);
+  const scoreEl = sec.querySelector('.score');
+  const res = FREE[id](sec);
+  if (!res.ok) {
+    scoreEl.classList.add('warn');
+    scoreEl.textContent = res.msg;
+    res.focus.scrollIntoView({ block: 'center', behavior: reducedMotion ? 'auto' : 'smooth' });
+    return;
+  }
+  sec.querySelectorAll('select, textarea').forEach(x => x.disabled = true);
+  scoreEl.classList.remove('warn');
+  scoreEl.textContent = res.msg;
+  passed.add(id);
+  sec.querySelector('[data-check]').textContent = GAME_LABEL[FLOW[id].game];
+  playGame(id);
+}
+
+function playGame(id) {
+  const flow = FLOW[id];
+  GAMES[flow.game](() => {
+    const btn = document.querySelector('#' + id + ' [data-check]');
+    btn.disabled = true;
+    btn.textContent = 'Sent ✔';
+    const last = !flow.unlock.length;
+    if (scores[id]) celebrate(cheerFor(scores[id].right, scores[id].total, last));
+    else celebrate(cheerFor(1, 1, last, true));
+    if (last) showFinish(); else unlock(flow.unlock);
+  });
+}
+
+function unlock(ids) {
+  ids.forEach(i => {
+    const s = document.getElementById(i);
+    s.hidden = false;
+    s.classList.add('unlocked');
+  });
+  setTimeout(() => document.getElementById(ids[0]).scrollIntoView({ block: 'start', behavior: reducedMotion ? 'auto' : 'smooth' }), 400);
 }
 
 function updateTotal() {
@@ -632,54 +797,247 @@ function showFinish() {
   const got = Object.values(scores).reduce((n, s) => n + s.right, 0);
   document.getElementById('finish-title').textContent = `Well done, ${student.name}!`;
   document.getElementById('finish-score').textContent = `Your score: ${got} / ${all}`;
-  document.getElementById('finish').hidden = false;
+  const fin = document.getElementById('finish');
+  fin.hidden = false;
+  setTimeout(() => fin.scrollIntoView({ block: 'center', behavior: reducedMotion ? 'auto' : 'smooth' }), 400);
 }
 
-/* ---------- cookie gate (first Send only) ---------- */
-let cookieDone = false;
+/* ---------- mini-games (shown after finishing an activity) ---------- */
 const CRACK_PATH = 'M50 14 L42 30 L58 44 L43 60 L57 74 L50 88';
 
-function cookieGate(onDone) {
+function openGate(titleText, hintText) {
   const gate = document.getElementById('cookie-gate');
   gate.textContent = '';
   const box = el('div', { class: 'box' });
-  const title = el('h3'); title.textContent = 'Last step!';
-  const en = el('p'); en.textContent = 'Click the cookie 5 times to send your answers!';
+  const title = el('h3'); title.textContent = titleText;
+  const hint = el('p'); hint.textContent = hintText;
   const stage = el('div', { class: 'stage' });
-  const cookie = el('button', { type: 'button', class: 'cookie', 'aria-label': 'Cookie' },
-    `<span class="emo">🍪</span><svg viewBox="0 0 100 100" aria-hidden="true"><path d="${CRACK_PATH}" pathLength="100"/></svg>`);
-  stage.appendChild(cookie);
-  const count = el('p', { class: 'count' }); count.textContent = '0 / 5';
+  const count = el('p', { class: 'count' });
   const back = el('button', { type: 'button', class: 'secondary' }); back.textContent = 'Back';
-  box.append(title, en, stage, count, back);
+  box.append(title, hint, stage, count, back);
   gate.appendChild(box);
   gate.hidden = false;
-  cookie.focus();
+  back.addEventListener('click', () => { gate.hidden = true; });
+  const finish = (onDone, ms) => {
+    back.hidden = true;
+    setTimeout(() => { gate.hidden = true; onDone(); }, ms);
+  };
+  return { title, hint, stage, count, finish };
+}
 
-  let clicks = 0;
-  const crack = cookie.querySelector('path');
-  cookie.addEventListener('click', () => {
-    clicks++;
-    count.textContent = clicks + ' / 5';
-    crack.style.strokeDashoffset = 100 - clicks * 20;
-    if (clicks < 5) {
-      cookie.classList.remove('shake');
-      void cookie.offsetWidth;
-      cookie.classList.add('shake');
+function shake(node) {
+  node.classList.remove('shake');
+  void node.offsetWidth;
+  node.classList.add('shake');
+}
+
+const PIECES = {
+  2: ['l', 'r'],
+  4: ['q1', 'q2', 'q3', 'q4'],
+};
+
+// cookie, broccoli, egg: click until it breaks into pieces
+function smashGame({ emoji, name, verb = 'Break', clicks, pieces, reveal, doneTitle }, onDone) {
+  const g = openGate(`${verb} the ${name}!`, `Click the ${name} ${clicks} times to continue!`);
+  const btn = el('button', { type: 'button', class: 'cookie', 'aria-label': name },
+    `<span class="emo">${emoji}</span><svg viewBox="0 0 100 100" aria-hidden="true"><path d="${CRACK_PATH}" pathLength="100"/></svg>`);
+  g.stage.appendChild(btn);
+  g.count.textContent = `0 / ${clicks}`;
+  btn.focus();
+
+  let n = 0;
+  const crack = btn.querySelector('path');
+  btn.addEventListener('click', () => {
+    n++;
+    g.count.textContent = `${n} / ${clicks}`;
+    crack.style.strokeDashoffset = 100 - n * (100 / clicks);
+    if (n < clicks) { shake(btn); return; }
+    g.stage.textContent = '';
+    if (reveal) g.stage.appendChild(el('span', { class: 'reveal' }, reveal));
+    const parts = PIECES[pieces].map(cls => el('span', { class: 'half ' + cls }, emoji));
+    g.stage.append(...parts);
+    requestAnimationFrame(() => requestAnimationFrame(() => parts.forEach(p => p.classList.add('apart'))));
+    g.title.textContent = doneTitle || `CRACK! ${emoji}`;
+    g.hint.textContent = 'Great! Loading the next activity…';
+    g.count.textContent = '';
+    g.finish(onDone, 1400);
+  });
+}
+
+function soccerGame(onDone) {
+  const g = openGate('Goal time! ⚽', 'Click the player to kick the ball into the goal!');
+  g.stage.classList.add('pitch');
+  g.stage.innerHTML = `
+    <span class="goal">🥅</span>
+    <button type="button" class="player" aria-label="Soccer player">
+      <svg viewBox="0 0 80 110" aria-hidden="true">
+        <circle cx="40" cy="18" r="11" fill="#f4c7a1"/>
+        <path d="M29 17 Q40 1 51 17 Q40 9 29 17Z" fill="#4a2c17"/>
+        <circle cx="45" cy="19" r="1.7" fill="#222"/>
+        <line x1="31" y1="37" x2="19" y2="52" stroke="#f4c7a1" stroke-width="6" stroke-linecap="round"/>
+        <line x1="49" y1="37" x2="62" y2="47" stroke="#f4c7a1" stroke-width="6" stroke-linecap="round"/>
+        <rect x="28" y="30" width="24" height="30" rx="8" style="fill:var(--accent)"/>
+        <text x="40" y="51" font-size="14" font-weight="700" text-anchor="middle" style="fill:var(--on-accent)">10</text>
+        <rect x="28" y="58" width="24" height="14" rx="4" fill="#1e2a78"/>
+        <line x1="34" y1="72" x2="34" y2="98" stroke="#f4c7a1" stroke-width="8" stroke-linecap="round"/>
+        <line x1="34" y1="86" x2="34" y2="98" stroke="#fff" stroke-width="9"/>
+        <ellipse cx="37" cy="102" rx="9" ry="4" fill="#222"/>
+        <g class="kickleg">
+          <line x1="46" y1="72" x2="46" y2="98" stroke="#f4c7a1" stroke-width="8" stroke-linecap="round"/>
+          <line x1="46" y1="86" x2="46" y2="98" stroke="#fff" stroke-width="9"/>
+          <ellipse cx="49" cy="102" rx="9" ry="4" fill="#222"/>
+        </g>
+      </svg>
+    </button>
+    <span class="ball">⚽</span>`;
+  const player = g.stage.querySelector('.player');
+  const ball = g.stage.querySelector('.ball');
+  const goal = g.stage.querySelector('.goal');
+  g.stage.style.setProperty('--dx', Math.max(120, g.stage.clientWidth - 125) + 'px');
+  player.focus();
+  player.addEventListener('click', () => {
+    player.disabled = true;
+    player.classList.add('kick');
+    setTimeout(() => ball.classList.add('shot'), 250);
+    setTimeout(() => {
+      goal.classList.add('goal-hit');
+      g.title.textContent = 'GOAL!!! ⚽';
+      g.hint.textContent = 'What a shot! Loading the next activity…';
+    }, 1250);
+    g.finish(onDone, 2600);
+  });
+}
+
+function snakeGame(onDone) {
+  const clicks = 5;
+  const g = openGate('Wake up the snake! 🐍', `Click the snake ${clicks} times!`);
+  const btn = el('button', { type: 'button', class: 'snake', 'aria-label': 'Snake' }, `
+    <svg viewBox="0 0 200 165" aria-hidden="true">
+      <path d="M100 62 C 36 86, 36 112, 100 122 C 166 132, 156 152, 88 154" fill="none" stroke="#2e7d32" stroke-width="28" stroke-linecap="round"/>
+      <path d="M100 62 C 36 86, 36 112, 100 122 C 166 132, 156 152, 88 154" fill="none" stroke="#66bb6a" stroke-width="20" stroke-linecap="round"/>
+      <path d="M100 62 C 36 86, 36 112, 100 122 C 166 132, 156 152, 88 154" fill="none" stroke="#c8e6c9" stroke-width="7" stroke-linecap="round" stroke-dasharray="1 20"/>
+      <g class="tongue">
+        <path d="M100 56 L100 96 M100 96 L90 110 M100 96 L110 110" fill="none" stroke="#e53935" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+      <ellipse cx="100" cy="40" rx="36" ry="27" fill="#66bb6a" stroke="#2e7d32" stroke-width="4"/>
+      <circle cx="86" cy="30" r="9" fill="#fff"/><circle cx="114" cy="30" r="9" fill="#fff"/>
+      <circle cx="88" cy="31" r="4" fill="#222"/><circle cx="112" cy="31" r="4" fill="#222"/>
+      <path d="M82 50 Q100 60 118 50" fill="none" stroke="#2e7d32" stroke-width="3.5" stroke-linecap="round"/>
+    </svg>`);
+  g.stage.appendChild(btn);
+  g.count.textContent = `0 / ${clicks}`;
+  btn.focus();
+
+  const tongue = btn.querySelector('.tongue');
+  let n = 0;
+  btn.addEventListener('click', () => {
+    n++;
+    g.count.textContent = `${n} / ${clicks}`;
+    if (n < clicks) {
+      tongue.style.transform = `scaleY(${n * 0.14})`;
+      shake(btn);
       return;
     }
-    stage.textContent = '';
-    const l = el('span', { class: 'half l' }, '🍪');
-    const r = el('span', { class: 'half r' }, '🍪');
-    stage.append(l, r);
-    requestAnimationFrame(() => requestAnimationFrame(() => { l.classList.add('apart'); r.classList.add('apart'); }));
-    title.textContent = 'CRACK! 🍪';
-    back.hidden = true;
-    en.textContent = 'Sending your answers…';
-    setTimeout(() => { gate.hidden = true; onDone(); }, 1300);
+    tongue.style.transform = '';
+    btn.classList.add('out');
+    g.title.textContent = 'SSSSSS! 🐍';
+    g.hint.textContent = 'Look at that tongue! Loading the next activity…';
+    g.count.textContent = '';
+    g.finish(onDone, 2000);
   });
-  back.addEventListener('click', () => { gate.hidden = true; });
 }
+
+// balloon: gets bigger with every click, then POP
+function balloonGame(onDone) {
+  const clicks = 4;
+  const g = openGate('Pop the balloon! 🎈', `Click the balloon ${clicks} times to blow it up!`);
+  const btn = el('button', { type: 'button', class: 'cookie balloon', 'aria-label': 'Balloon' }, '<span class="emo">🎈</span>');
+  g.stage.appendChild(btn);
+  g.count.textContent = `0 / ${clicks}`;
+  btn.focus();
+
+  const emo = btn.querySelector('.emo');
+  let n = 0;
+  btn.addEventListener('click', () => {
+    n++;
+    g.count.textContent = `${n} / ${clicks}`;
+    if (n < clicks) {
+      emo.style.transform = `scale(${1 + n * 0.3})`;
+      shake(btn);
+      return;
+    }
+    g.stage.textContent = '';
+    g.stage.appendChild(el('span', { class: 'reveal' }, '💥'));
+    g.title.textContent = 'POP!!! 🎈';
+    g.hint.textContent = 'BANG! Loading the next activity…';
+    g.count.textContent = '';
+    confetti();
+    g.finish(onDone, 1600);
+  });
+}
+
+// pizza: every click is a big bite
+function pizzaGame(onDone) {
+  const clicks = 4;
+  const g = openGate('Eat the pizza! 🍕', `Click the pizza ${clicks} times to take bites!`);
+  const btn = el('button', { type: 'button', class: 'cookie pizza', 'aria-label': 'Pizza' }, '<span class="emo">🍕</span>');
+  g.stage.appendChild(btn);
+  g.count.textContent = `0 / ${clicks}`;
+  btn.focus();
+
+  const emo = btn.querySelector('.emo');
+  let n = 0;
+  btn.addEventListener('click', () => {
+    n++;
+    g.count.textContent = `${n} / ${clicks}`;
+    emo.style.setProperty('--e', (n * 360 / clicks) + 'deg');
+    if (n < clicks) { shake(btn); return; }
+    g.stage.textContent = '';
+    g.stage.appendChild(el('span', { class: 'reveal' }, '😋'));
+    g.title.textContent = 'YUM! 😋';
+    g.hint.textContent = 'Delicious! Loading the next activity…';
+    g.count.textContent = '';
+    g.finish(onDone, 1600);
+  });
+}
+
+// rocket: countdown 3, 2, 1 and blast off
+function rocketGame(onDone) {
+  const clicks = 3;
+  const g = openGate('Launch the rocket! 🚀', `Click the rocket ${clicks} times for the countdown!`);
+  g.stage.classList.add('sky');
+  const btn = el('button', { type: 'button', class: 'rocket', 'aria-label': 'Rocket' }, '<span class="emo">🚀</span>');
+  g.stage.appendChild(btn);
+  g.count.textContent = `${clicks}…`;
+  btn.focus();
+
+  let n = 0;
+  btn.addEventListener('click', () => {
+    n++;
+    if (n < clicks) {
+      g.count.textContent = `${clicks - n}…`;
+      shake(btn);
+      return;
+    }
+    btn.classList.add('launch');
+    g.title.textContent = 'BLAST OFF! 🚀';
+    g.hint.textContent = 'You did it! Loading your results…';
+    g.count.textContent = '';
+    confetti();
+    g.finish(onDone, 2200);
+  });
+}
+
+const GAMES = {
+  cookie: cb => smashGame({ emoji: '🍪', name: 'cookie', clicks: 5, pieces: 2 }, cb),
+  broccoli: cb => smashGame({ emoji: '🥦', name: 'broccoli', clicks: 4, pieces: 4 }, cb),
+  soccer: soccerGame,
+  snake: snakeGame,
+  egg: cb => smashGame({ emoji: '🥚', name: 'egg', verb: 'Hatch', clicks: 3, pieces: 2, reveal: '🐣', doneTitle: "It's a chick! 🐣" }, cb),
+  balloon: balloonGame,
+  pizza: pizzaGame,
+  rocket: rocketGame,
+};
 
 /* ---------- celebration ---------- */
 const CHEERS = [
@@ -688,10 +1046,11 @@ const CHEERS = [
   { e: '🛸', a: 'fly' }, { e: '🍩', a: 'spin' },
 ];
 
-function cheerFor(right, total, allDone) {
+function cheerFor(right, total, allDone, free = false) {
   const pick = CHEERS[Math.floor(Math.random() * CHEERS.length)];
   const n = firstName();
   if (allDone) return { ...pick, e: '🏆', a: 'bounce', title: `ALL DONE, ${n}!`, sub: 'You finished everything!' };
+  if (free) return { ...pick, title: `Great work, ${n}!`, sub: 'Activity completed!' };
   if (right === total) return { ...pick, title: `PERFECT, ${n}!`, sub: '100% correct!' };
   if (right / total >= 0.7) return { ...pick, title: `Great job, ${n}!`, sub: 'Check the answers below.' };
   return { ...pick, title: `Nice try, ${n}!`, sub: 'Look at the correct answers below.' };
@@ -745,7 +1104,22 @@ document.getElementById('cheer').addEventListener('click', () => {
 /* ---------- init ---------- */
 Object.keys(ACTS).forEach(buildActivity);
 updateTotal();
-document.querySelectorAll('[data-check]').forEach(b => b.addEventListener('click', () => send(b.dataset.check)));
+document.querySelectorAll('[data-check]').forEach(b => b.addEventListener('click', () => {
+  const id = b.dataset.check;
+  // passed but the mini-game was closed: the button reopens it
+  if (passed.has(id)) playGame(id); else send(id);
+}));
+
+// Mia's text lives in the True/False activity; the "How often" activity shows a copy
+const reading = document.querySelector('#a2 .reading');
+document.querySelector('#a1 .instr').after(reading.cloneNode(true));
+
+// number the activities by difficulty, and unlock them one by one
+ORDER.forEach((id, i) => {
+  const sec = document.getElementById(id);
+  sec.querySelector('.num').textContent = i + 1;
+  sec.hidden = i > 0;
+});
 
 // word bank for activity 6 (alphabetical so it doesn't give the order away)
 const bank = ['apple', 'bread', 'broccoli', 'carrot', 'cheese', 'chocolate', 'cookie', 'fish', 'juice', 'milk', 'pizza', 'sandwich'];
