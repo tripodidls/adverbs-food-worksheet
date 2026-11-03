@@ -1,0 +1,428 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Worksheet: Food & Drinks – Adverbs of Frequency</title>
+<style>
+  :root {
+    --bg: #fff8ec;
+    --card: #ffffff;
+    --ink: #2b2a33;
+    --muted: #6b6878;
+    --accent: #ff7a3d;
+    --accent-dark: #d9531a;
+    --blue: #2f80ed;
+    --green: #1f9d55;
+    --red: #d64545;
+    --line: #f0e3cf;
+    --soft: #fff1dc;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: "Trebuchet MS", "Segoe UI", Arial, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.5;
+    font-size: 18px;
+  }
+  .wrap { max-width: 900px; margin: 0 auto; padding: 24px 16px 60px; }
+  header.hero {
+    background: linear-gradient(135deg, #ff9a4d, #ff6b6b);
+    color: #fff;
+    border-radius: 24px;
+    padding: 28px 28px 24px;
+    box-shadow: 0 6px 0 var(--accent-dark);
+  }
+  .hero h1 { margin: 0 0 6px; font-size: 2rem; line-height: 1.15; }
+  .hero p { margin: 0; opacity: .95; }
+  .toolbar {
+    display: flex; flex-wrap: wrap; gap: 12px; align-items: center;
+    margin: 18px 0 8px;
+  }
+  .toolbar label { font-weight: bold; }
+  .toolbar input[type=text] {
+    font: inherit; padding: 8px 12px; border: 2px solid var(--line);
+    border-radius: 12px; min-width: 200px; background: #fff; color: var(--ink);
+  }
+  .total {
+    margin-left: auto; background: #fff; border: 2px solid var(--line);
+    border-radius: 999px; padding: 6px 16px; font-weight: bold;
+  }
+  button, .btn {
+    font: inherit; font-weight: bold; cursor: pointer;
+    border: 0; border-radius: 12px; padding: 9px 16px;
+    background: var(--blue); color: #fff;
+  }
+  button.secondary { background: #fff; color: var(--ink); border: 2px solid var(--line); }
+  button:hover { filter: brightness(1.07); }
+  section.card {
+    background: var(--card); border-radius: 20px; padding: 22px 24px;
+    margin-top: 22px; border: 2px solid var(--line);
+  }
+  section.card h2 { margin: 0 0 4px; font-size: 1.4rem; }
+  section.card h2 .num {
+    display: inline-block; background: var(--accent); color: #fff;
+    width: 36px; height: 36px; line-height: 36px; text-align: center;
+    border-radius: 50%; margin-right: 8px; font-size: 1.1rem;
+  }
+  .instr { color: var(--muted); margin: 0 0 14px; }
+  .tip {
+    background: var(--soft); border-left: 6px solid var(--accent);
+    border-radius: 12px; padding: 12px 16px; margin: 14px 0;
+  }
+  .tip b { color: var(--accent-dark); }
+  .scale { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
+  .scale div {
+    flex: 1 1 120px; text-align: center; border-radius: 14px; padding: 10px 6px;
+    color: #fff; font-weight: bold;
+  }
+  .scale small { display: block; font-weight: normal; opacity: .95; }
+  .s1 { background: #1f9d55; } .s2 { background: #4caf50; color: #1d3b1f; }
+  .s3 { background: #c0ca33; color: #3b3d0a; } .s4 { background: #ffb300; color: #4a3500; }
+  .s5 { background: #ff7a3d; } .s6 { background: #d64545; }
+  .s2 { color: #fff; }
+  .reading {
+    background: #fffdf7; border: 2px dashed #e8c99b; border-radius: 16px;
+    padding: 14px 18px; margin-bottom: 16px;
+  }
+  .reading h3 { margin: 0 0 6px; }
+  .reading mark { background: #ffe08a; padding: 0 3px; border-radius: 4px; font-weight: bold; }
+  ol.items { padding-left: 26px; margin: 0; }
+  ol.items li { margin: 12px 0; padding: 6px 8px; border-radius: 10px; }
+  ol.items li.ok { background: #e6f6ec; }
+  ol.items li.bad { background: #fdeaea; }
+  ol.grid { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; }
+  ol.grid li { margin: 0; text-align: center; border: 2px solid var(--line); }
+  ol.grid .emoji { font-size: 2.4rem; display: block; }
+  select, input[type=text].ans {
+    font: inherit; padding: 5px 8px; border-radius: 10px;
+    border: 2px solid #d9cbb4; background: #fff; color: var(--ink);
+  }
+  input[type=text].ans { width: min(100%, 460px); }
+  ol.grid input[type=text].ans { width: 100%; text-align: center; }
+  .opt { margin-right: 14px; white-space: nowrap; }
+  .chips { margin: 4px 0 6px; }
+  .chip {
+    display: inline-block; background: #e8f1ff; border: 2px solid #bcd6ff;
+    border-radius: 999px; padding: 1px 12px; margin: 2px 4px 2px 0; font-size: .95rem;
+  }
+  .bank { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+  .actions { margin-top: 14px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+  .score { font-weight: bold; }
+  .key { display: none; color: var(--green); font-weight: bold; margin-left: 8px; }
+  body.show-key .key { display: inline; }
+  table.survey { border-collapse: collapse; width: 100%; font-size: .95rem; }
+  table.survey th, table.survey td { border: 2px solid var(--line); padding: 6px 8px; text-align: center; }
+  table.survey td:first-child { text-align: left; }
+  textarea {
+    width: 100%; min-height: 130px; font: inherit; padding: 10px 12px;
+    border: 2px solid #d9cbb4; border-radius: 12px; background: #fff; color: var(--ink);
+    resize: vertical;
+  }
+  .stems li { margin: 6px 0; }
+  footer { text-align: center; color: var(--muted); margin-top: 30px; font-size: .9rem; }
+  @media (max-width: 560px) {
+    body { font-size: 16px; }
+    .hero h1 { font-size: 1.5rem; }
+    .total { margin-left: 0; }
+  }
+  @media print {
+    body { background: #fff; font-size: 14px; }
+    .toolbar button, .actions, .no-print { display: none !important; }
+    section.card { break-inside: avoid; border-color: #bbb; }
+    header.hero { box-shadow: none; color: #000; background: #fff; border: 2px solid #000; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <h1>🍎 Food &amp; Drinks 🥛<br>How often do you…?</h1>
+    <p>Adverbs of frequency: always · usually · often · sometimes · rarely · never</p>
+  </header>
+
+  <div class="toolbar">
+    <label for="name">Name:</label>
+    <input type="text" id="name" placeholder="Write your name">
+    <button class="secondary no-print" id="btn-key">👩‍🏫 Teacher: show / hide answers</button>
+    <button class="secondary no-print" onclick="window.print()">🖨️ Print</button>
+    <span class="total" id="total">⭐ Total: 0 / 0</span>
+  </div>
+
+  <section class="card">
+    <h2>📘 Let's remember!</h2>
+    <p class="instr">We use adverbs of frequency to say <b>how often</b> we do something.</p>
+    <div class="scale">
+      <div class="s1">always<small>100% · every time</small></div>
+      <div class="s2">usually<small>80% · most days</small></div>
+      <div class="s3">often<small>60% · many times</small></div>
+      <div class="s4">sometimes<small>40% · some days</small></div>
+      <div class="s5">rarely<small>20% · almost never</small></div>
+      <div class="s6">never<small>0% · not ever</small></div>
+    </div>
+    <div class="tip">
+      <b>Where do they go?</b><br>
+      ✅ <i>before</i> a normal verb: I <mark>always</mark> eat fruit. / She <mark>never</mark> drinks coffee.<br>
+      ✅ <i>after</i> the verb <b>to be</b> (am / is / are): He is <mark>usually</mark> hungry. / We are <mark>often</mark> thirsty.<br>
+      ❓ Question: <b>How often</b> do you drink milk? → I <mark>drink</mark> milk <mark>every day</mark>. / I <mark>sometimes</mark> drink milk.
+    </div>
+  </section>
+
+  <!-- 1 READING -->
+  <section class="card" id="a1">
+    <h2><span class="num">1</span> Reading: Mia's food week</h2>
+    <p class="instr">Read the text. Then answer the questions: <b>How often…?</b> Choose the correct adverb.</p>
+    <div class="reading">
+      <h3>🍽️ Mia's food week</h3>
+      <p>Hi! My name is Mia and I'm eleven years old. I live with my mum, my dad and my little brother, Sam.
+      I <mark>always</mark> have breakfast at 7:30. I <mark>usually</mark> eat cereal with milk, and I <mark>sometimes</mark> have toast with jam.
+      I <mark>never</mark> drink coffee, but I <mark>often</mark> drink orange juice.</p>
+      <p>At school, I <mark>usually</mark> have a sandwich and an apple for lunch. My friend Lucy <mark>rarely</mark> eats sandwiches. She <mark>always</mark> brings pasta in a box.</p>
+      <p>On Fridays, my family <mark>always</mark> eats pizza for dinner. My brother Sam loves sweets, but my mum <mark>never</mark> gives him sweets on school days. He only eats them at the weekend.
+      I don't like fish, so I <mark>rarely</mark> eat it. But I love vegetables! I <mark>always</mark> eat carrots or broccoli at dinner.
+      In the evening, I <mark>sometimes</mark> drink hot chocolate before bed.</p>
+    </div>
+    <ol class="items"></ol>
+    <div class="actions"><button data-check="a1">Check ✔</button><button class="secondary" data-reset="a1">Try again ↺</button><span class="score"></span></div>
+  </section>
+
+  <!-- 2 TRUE / FALSE -->
+  <section class="card" id="a2">
+    <h2><span class="num">2</span> True or False?</h2>
+    <p class="instr">Look at Mia's text again. Are the sentences <b>true</b> or <b>false</b>?</p>
+    <ol class="items"></ol>
+    <div class="actions"><button data-check="a2">Check ✔</button><button class="secondary" data-reset="a2">Try again ↺</button><span class="score"></span></div>
+  </section>
+
+  <!-- 3 FILL THE GAP -->
+  <section class="card" id="a3">
+    <h2><span class="num">3</span> Choose the adverb</h2>
+    <p class="instr">Read the clue in brackets and choose the best adverb for each sentence.</p>
+    <ol class="items"></ol>
+    <div class="actions"><button data-check="a3">Check ✔</button><button class="secondary" data-reset="a3">Try again ↺</button><span class="score"></span></div>
+  </section>
+
+  <!-- 4 WORD ORDER (CHOICE) -->
+  <section class="card" id="a4">
+    <h2><span class="num">4</span> Where does it go?</h2>
+    <p class="instr">Which sentence has the adverb in the correct place? Remember: <b>before</b> a normal verb, <b>after</b> <i>am / is / are</i>.</p>
+    <ol class="items"></ol>
+    <div class="actions"><button data-check="a4">Check ✔</button><button class="secondary" data-reset="a4">Try again ↺</button><span class="score"></span></div>
+  </section>
+
+  <!-- 5 UNSCRAMBLE -->
+  <section class="card" id="a5">
+    <h2><span class="num">5</span> Put the words in order</h2>
+    <p class="instr">Write the sentence. Don't forget the capital letter and the full stop (.) or question mark (?).</p>
+    <ol class="items"></ol>
+    <div class="actions"><button data-check="a5">Check ✔</button><button class="secondary" data-reset="a5">Try again ↺</button><span class="score"></span></div>
+  </section>
+
+  <!-- 6 VOCAB -->
+  <section class="card" id="a6">
+    <h2><span class="num">6</span> Food &amp; drinks words</h2>
+    <p class="instr">Look at the pictures and write the word. Use the word bank.</p>
+    <div class="bank" id="bank6"></div>
+    <ol class="items grid"></ol>
+    <div class="actions"><button data-check="a6">Check ✔</button><button class="secondary" data-reset="a6">Try again ↺</button><span class="score"></span></div>
+  </section>
+
+  <!-- 7 SURVEY -->
+  <section class="card" id="a7">
+    <h2><span class="num">7</span> Class survey: How often…?</h2>
+    <p class="instr">Fill in the table about <b>you</b>. Then ask a friend: <i>"How often do you eat…?"</i> and complete the last column.</p>
+    <table class="survey">
+      <thead><tr><th>How often do you…?</th><th>Me</th><th>My friend</th></tr></thead>
+      <tbody id="survey-body"></tbody>
+    </table>
+    <p class="instr no-print" style="margin-top:10px">This activity is not marked. Speak with your friend! 🗣️</p>
+  </section>
+
+  <!-- 8 WRITING -->
+  <section class="card" id="a8">
+    <h2><span class="num">8</span> Write about you</h2>
+    <p class="instr">Write <b>5 sentences</b> about what you eat and drink. Use a different adverb in each sentence.</p>
+    <ul class="stems">
+      <li>For breakfast, I … have / eat / drink …</li>
+      <li>At school, I … eat …</li>
+      <li>My family … has … for dinner.</li>
+      <li>I … drink … (water / milk / juice / soda)</li>
+      <li>I … eat … (fruit / vegetables / sweets / fast food)</li>
+    </ul>
+    <textarea placeholder="Write here…"></textarea>
+  </section>
+
+  <footer>Made for primary English class · Level A2 · Ages 10–11</footer>
+</div>
+
+<script>
+const ADV = ['always', 'usually', 'often', 'sometimes', 'rarely', 'never'];
+
+// type: select | tf | choice | text
+const ACTS = {
+  a1: { type: 'select', options: ADV, items: [
+    { q: 'How often does Mia have breakfast at 7:30?', a: ['always'] },
+    { q: 'How often does Mia drink coffee?', a: ['never'] },
+    { q: 'How often does Mia have a sandwich for lunch?', a: ['usually'] },
+    { q: 'How often does Lucy eat sandwiches?', a: ['rarely'] },
+    { q: 'How often does Mia\'s family eat pizza on Fridays?', a: ['always'] },
+    { q: 'How often does Mia\'s mum give Sam sweets on school days?', a: ['never'] },
+    { q: 'How often does Mia drink hot chocolate in the evening?', a: ['sometimes'] },
+    { q: 'How often does Mia drink orange juice?', a: ['often'] },
+  ]},
+  a2: { type: 'tf', items: [
+    { q: 'Mia usually eats cereal for breakfast.', a: ['true'] },
+    { q: 'Mia often drinks coffee.', a: ['false'], note: 'She never drinks coffee.' },
+    { q: 'Lucy always brings pasta to school.', a: ['true'] },
+    { q: 'Sam eats sweets every school day.', a: ['false'], note: 'His mum never gives him sweets on school days.' },
+    { q: 'Mia\'s family never eats pizza.', a: ['false'], note: 'They always eat pizza on Fridays.' },
+    { q: 'Mia sometimes drinks hot chocolate before bed.', a: ['true'] },
+    { q: 'Mia often eats fish.', a: ['false'], note: 'She rarely eats fish.' },
+    { q: 'Mia always eats vegetables at dinner.', a: ['true'] },
+  ]},
+  a3: { type: 'select', options: ADV, items: [
+    { q: 'I ___ eat vegetables. I eat them every day. (100%)', a: ['always'] },
+    { q: 'My sister ___ drinks coffee. She doesn\'t like it. (0%)', a: ['never'] },
+    { q: 'We ___ have pizza on Saturdays, but not every week. (40%)', a: ['sometimes'] },
+    { q: 'He ___ eats breakfast at school. Only a few times a year. (20%)', a: ['rarely'] },
+    { q: 'They ___ drink milk in the morning. Most days. (80%)', a: ['usually'] },
+    { q: 'I ___ have ice cream in summer. Many times! (60%)', a: ['often'] },
+  ]},
+  a4: { type: 'choice', items: [
+    { q: '', opts: ['I never eat fish.', 'I eat never fish.'], a: ['0'] },
+    { q: '', opts: ['He is usually hungry at lunch.', 'He usually is hungry at lunch.'], a: ['0'] },
+    { q: '', opts: ['We have sometimes pizza.', 'We sometimes have pizza.'], a: ['1'] },
+    { q: '', opts: ['They often are thirsty.', 'They are often thirsty.'], a: ['1'] },
+    { q: '', opts: ['She always drinks water.', 'She drinks always water.'], a: ['0'] },
+  ]},
+  a5: { type: 'text', items: [
+    { words: ['always', 'breakfast', 'I', 'have', 'at home'], a: ['i always have breakfast at home', 'at home i always have breakfast'], show: 'I always have breakfast at home.' },
+    { words: ['never', 'eats', 'my', 'dad', 'fish'], a: ['my dad never eats fish'], show: 'My dad never eats fish.' },
+    { words: ['usually', 'is', 'healthy', 'lunch', 'our'], a: ['our lunch is usually healthy'], show: 'Our lunch is usually healthy.' },
+    { words: ['sometimes', 'pizza', 'have', 'we', 'on Saturdays'], a: ['we sometimes have pizza on saturdays', 'on saturdays we sometimes have pizza'], show: 'We sometimes have pizza on Saturdays.' },
+    { words: ['how often', 'do', 'you', 'drink', 'milk'], a: ['how often do you drink milk'], show: 'How often do you drink milk?' },
+  ]},
+  a6: { type: 'text', items: [
+    { e: '🍎', a: ['apple'] }, { e: '🥛', a: ['milk'] }, { e: '🍕', a: ['pizza'] },
+    { e: '🥕', a: ['carrot', 'carrots'] }, { e: '🍫', a: ['chocolate'] }, { e: '🐟', a: ['fish'] },
+    { e: '🥪', a: ['sandwich'] }, { e: '🧃', a: ['juice', 'orange juice', 'apple juice'] }, { e: '🍞', a: ['bread'] },
+    { e: '🧀', a: ['cheese'] }, { e: '🍪', a: ['cookie', 'biscuit', 'cookies', 'biscuits'] }, { e: '🥦', a: ['broccoli'] },
+  ]},
+};
+
+const SURVEY = ['eat fruit', 'eat vegetables', 'drink milk', 'drink water', 'eat sweets', 'eat pizza', 'drink soda', 'eat fish'];
+
+const norm = s => (s || '').toLowerCase().replace(/[.,!?]/g, '').replace(/\s+/g, ' ').trim();
+const scores = {};
+
+function el(tag, attrs = {}, html = '') {
+  const e = document.createElement(tag);
+  Object.entries(attrs).forEach(([k, v]) => e.setAttribute(k, v));
+  e.innerHTML = html;
+  return e;
+}
+
+function buildActivity(id) {
+  const cfg = ACTS[id];
+  const ol = document.querySelector('#' + id + ' ol.items');
+  cfg.items.forEach((it, i) => {
+    const li = el('li');
+    let ctrl = '';
+    let keyText = '';
+    if (cfg.type === 'select') {
+      const opts = cfg.options.map(o => `<option value="${o}">${o}</option>`).join('');
+      const q = it.q.replace('___', '<select>' + '<option value="">…</option>' + opts + '</select>');
+      li.innerHTML = it.q.includes('___') ? q : `${it.q}<br><select><option value="">Choose…</option>${opts}</select>`;
+      keyText = it.a[0];
+    } else if (cfg.type === 'tf') {
+      li.innerHTML = `${it.q}<br>
+        <label class="opt"><input type="radio" name="${id}-${i}" value="true"> True ✅</label>
+        <label class="opt"><input type="radio" name="${id}-${i}" value="false"> False ❌</label>`;
+      keyText = it.a[0] + (it.note ? ' – ' + it.note : '');
+    } else if (cfg.type === 'choice') {
+      li.innerHTML = it.opts.map((o, k) =>
+        `<label class="opt"><input type="radio" name="${id}-${i}" value="${k}"> ${String.fromCharCode(97 + k)}) ${o}</label>`
+      ).join('<br>');
+      keyText = it.opts[Number(it.a[0])];
+    } else if (cfg.type === 'text') {
+      if (it.words) {
+        li.innerHTML = `<div class="chips">${it.words.map(w => `<span class="chip">${w}</span>`).join('')}</div>
+          <input type="text" class="ans" autocomplete="off" spellcheck="false" placeholder="Write the sentence…">`;
+        keyText = it.show;
+      } else {
+        li.innerHTML = `<span class="emoji">${it.e}</span><input type="text" class="ans" autocomplete="off" spellcheck="false" placeholder="…">`;
+        keyText = it.a[0];
+      }
+    }
+    li.appendChild(el('span', { class: 'key' }, '→ ' + keyText));
+    ol.appendChild(li);
+  });
+}
+
+function getValue(li) {
+  const sel = li.querySelector('select');
+  if (sel) return sel.value;
+  const r = li.querySelector('input[type=radio]:checked');
+  if (r) return r.value;
+  const t = li.querySelector('input[type=text]');
+  return t ? t.value : '';
+}
+
+function check(id) {
+  const cfg = ACTS[id];
+  const lis = document.querySelectorAll('#' + id + ' ol.items > li');
+  let right = 0;
+  lis.forEach((li, i) => {
+    const v = norm(getValue(li));
+    const ok = cfg.items[i].a.map(norm).includes(v);
+    li.classList.remove('ok', 'bad');
+    if (v) li.classList.add(ok ? 'ok' : 'bad');
+    else li.classList.add('bad');
+    if (ok) right++;
+  });
+  scores[id] = { right, total: lis.length };
+  const msg = right === lis.length ? '🎉 Perfect!' : right >= lis.length * 0.7 ? '👍 Good job!' : '💪 Try again!';
+  document.querySelector('#' + id + ' .score').textContent = `${right} / ${lis.length}  ${msg}`;
+  updateTotal();
+}
+
+function reset(id) {
+  document.querySelectorAll('#' + id + ' ol.items > li').forEach(li => {
+    li.classList.remove('ok', 'bad');
+    li.querySelectorAll('select').forEach(s => s.value = '');
+    li.querySelectorAll('input[type=radio]').forEach(r => r.checked = false);
+    li.querySelectorAll('input[type=text]').forEach(t => t.value = '');
+  });
+  document.querySelector('#' + id + ' .score').textContent = '';
+  delete scores[id];
+  updateTotal();
+}
+
+function updateTotal() {
+  const all = Object.keys(ACTS).reduce((n, id) => n + ACTS[id].items.length, 0);
+  const got = Object.values(scores).reduce((n, s) => n + s.right, 0);
+  document.getElementById('total').textContent = `⭐ Total: ${got} / ${all}`;
+}
+
+Object.keys(ACTS).forEach(buildActivity);
+updateTotal();
+
+document.querySelectorAll('[data-check]').forEach(b => b.addEventListener('click', () => check(b.dataset.check)));
+document.querySelectorAll('[data-reset]').forEach(b => b.addEventListener('click', () => reset(b.dataset.reset)));
+document.getElementById('btn-key').addEventListener('click', () => document.body.classList.toggle('show-key'));
+
+// word bank for activity 6 (alphabetical so it doesn't give the order away)
+const bank = ['apple', 'bread', 'broccoli', 'carrot', 'cheese', 'chocolate', 'cookie', 'fish', 'juice', 'milk', 'pizza', 'sandwich'];
+document.getElementById('bank6').innerHTML = bank.map(w => `<span class="chip">${w}</span>`).join('');
+
+// survey table
+const adverbOpts = '<option value="">…</option>' + ADV.map(a => `<option>${a}</option>`).join('');
+document.getElementById('survey-body').innerHTML = SURVEY.map(s =>
+  `<tr><td>How often do you ${s}?</td><td><select>${adverbOpts}</select></td><td><select>${adverbOpts}</select></td></tr>`
+).join('');
+</script>
+</body>
+</html>
