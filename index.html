@@ -155,9 +155,6 @@
   .key { display: none; margin-top: 4px; font-weight: bold; color: var(--green); }
   li.bad .key { color: var(--red); }
   li.done .key { display: block; }
-  table.survey { border-collapse: collapse; width: 100%; font-size: .95rem; }
-  table.survey th, table.survey td { border: 2px solid var(--line); padding: 6px 8px; text-align: center; }
-  table.survey td:first-child { text-align: left; }
   textarea {
     width: 100%; min-height: 130px; font: inherit; padding: 10px 12px;
     border: 2px solid #d9cbb4; border-radius: 12px; background: #fff; color: var(--ink);
@@ -242,40 +239,14 @@
   #cookie-gate .snake.out .tongue { transform: scaleY(1); animation: flick .22s ease-in-out infinite alternate; }
   @keyframes flick { from { transform: scaleY(1) rotate(-5deg); } to { transform: scaleY(.82) rotate(5deg); } }
 
-  /* egg, balloon, pizza, rocket */
+  /* egg, balloon */
   #cookie-gate .reveal {
     position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
     font-size: 5.5rem; line-height: 1; animation: pop .6s .25s cubic-bezier(.2,1.6,.4,1) both;
   }
   #cookie-gate .balloon .emo { font-size: 4.5rem; transition: transform .25s; }
-  #cookie-gate .pizza .emo {
-    -webkit-mask-image: conic-gradient(transparent 0 var(--e, 0deg), #000 var(--e, 0deg) 360deg);
-    mask-image: conic-gradient(transparent 0 var(--e, 0deg), #000 var(--e, 0deg) 360deg);
-    transition: none;
-  }
-  #cookie-gate .stage.sky {
-    width: 100%; max-width: 240px; height: 150px; border-radius: 14px; overflow: hidden;
-    display: flex; align-items: flex-end; justify-content: center;
-    background:
-      radial-gradient(circle at 18% 28%, #fff 0 1.5px, transparent 2.5px),
-      radial-gradient(circle at 72% 18%, #fff 0 1.5px, transparent 2.5px),
-      radial-gradient(circle at 86% 62%, #fff 0 1.2px, transparent 2.2px),
-      radial-gradient(circle at 34% 70%, #fff 0 1px, transparent 2px),
-      linear-gradient(#0b1d51, #274a9c);
-  }
-  #cookie-gate .rocket { width: 90px; height: 90px; padding: 0; background: transparent; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
-  #cookie-gate .rocket .emo { font-size: 4.6rem; line-height: 1; }
-  #cookie-gate .rocket:focus-visible { outline: 3px solid #fff; }
-  #cookie-gate .rocket.shake { animation: shake .35s; }
-  #cookie-gate .rocket.launch { animation: liftoff 1.3s ease-in forwards; }
-  @keyframes liftoff {
-    0% { transform: translate(0, 0); } 15% { transform: translate(0, 8px); }
-    100% { transform: translate(150px, -250px) scale(.5); }
-  }
   @media (prefers-reduced-motion: reduce) {
     #cookie-gate .reveal { animation: none; }
-    #cookie-gate .rocket.shake { animation: none; }
-    #cookie-gate .rocket.launch { animation: none; transform: translate(150px, -250px) scale(.5); }
   }
 
   section.card.unlocked { animation: unlock 1.2s ease-out; }
@@ -451,37 +422,11 @@
     <div class="actions"><button data-check="a5">Send ✔</button><span class="score"></span></div>
   </section>
 
-  <!-- SURVEY -->
-  <section class="card" id="a7">
-    <h2><span class="num"></span> Class survey: How often…?</h2>
-    <p class="instr">Fill in the table about <b>you</b>. Then ask your partner: <i>"How often do you eat…?"</i> and complete the last column. Fill in the whole table, then press Send.</p>
-    <table class="survey">
-      <thead><tr><th>How often do you…?</th><th>Me</th><th>My partner</th></tr></thead>
-      <tbody id="survey-body"></tbody>
-    </table>
-    <div class="actions"><button data-check="a7">Send ✔</button><span class="score"></span></div>
-  </section>
-
-  <!-- WRITING -->
-  <section class="card" id="a8">
-    <h2><span class="num"></span> Write about you</h2>
-    <p class="instr">Write <b>5 sentences</b> about what you eat and drink. Use at least <b>3 different adverbs</b> of frequency.</p>
-    <ul class="stems">
-      <li>For breakfast, I … have / eat / drink …</li>
-      <li>At school, I … eat …</li>
-      <li>My family … has … for dinner.</li>
-      <li>I … drink … (water / milk / juice / soda)</li>
-      <li>I … eat … (fruit / vegetables / sweets / fast food)</li>
-    </ul>
-    <textarea placeholder="Write here…"></textarea>
-    <div class="actions"><button data-check="a8">Send ✔</button><span class="score"></span></div>
-  </section>
-
   <section class="card finish" id="finish" hidden>
     <span class="trophy">🏆</span>
     <h2 id="finish-title"></h2>
     <p id="finish-score"></p>
-    <p class="instr">You finished all 8 activities! Show this screen to your teacher.</p>
+    <p class="instr">You finished all 6 activities! Show this screen to your teacher.</p>
   </section>
 
   </div><!-- /app -->
@@ -558,7 +503,6 @@ const ACTS = {
   ]},
 };
 
-const SURVEY = ['eat fruit', 'eat vegetables', 'drink milk', 'drink water', 'eat sweets', 'eat pizza', 'drink soda', 'eat fish'];
 
 const norm = s => (s || '').toLowerCase().replace(/[.,!?]/g, '').replace(/\s+/g, ' ').trim();
 const scores = {};
@@ -666,9 +610,9 @@ function getValue(li) {
 const PASS_RATIO = 0.5;
 
 // Activities from easiest to hardest. The ids are the ones used in the HTML / ACTS.
-const ORDER = ['a6', 'a3', 'a2', 'a1', 'a4', 'a5', 'a7', 'a8'];
+const ORDER = ['a6', 'a3', 'a2', 'a1', 'a4', 'a5'];
 // One mini-game per activity, in the same order. Finishing it unlocks the next activity.
-const GAME_ORDER = ['cookie', 'broccoli', 'soccer', 'snake', 'egg', 'balloon', 'pizza', 'rocket'];
+const GAME_ORDER = ['cookie', 'broccoli', 'soccer', 'snake', 'egg', 'balloon'];
 const FLOW = {};
 ORDER.forEach((id, i) => {
   FLOW[id] = { game: GAME_ORDER[i], unlock: ORDER[i + 1] ? [ORDER[i + 1]] : [] };
@@ -676,33 +620,10 @@ ORDER.forEach((id, i) => {
 const GAME_LABEL = {
   cookie: 'Break the cookie 🍪', broccoli: 'Break the broccoli 🥦', soccer: 'Score a goal ⚽',
   snake: 'Wake up the snake 🐍', egg: 'Hatch the egg 🥚', balloon: 'Pop the balloon 🎈',
-  pizza: 'Eat the pizza 🍕', rocket: 'Launch the rocket 🚀',
 };
 const passed = new Set();
 
-// Activities that are not marked: they only have to be completed properly.
-const FREE = {
-  a7(sec) {
-    const missing = [...sec.querySelectorAll('select')].filter(s => !s.value);
-    if (missing.length) return { ok: false, msg: 'Fill in the whole table first: you and your partner!', focus: missing[0] };
-    return { ok: true, msg: 'Table complete ✔' };
-  },
-  a8(sec) {
-    const area = sec.querySelector('textarea');
-    const sentences = area.value.split(/[.!?\n]+/).map(s => s.trim()).filter(s => s.split(/\s+/).length >= 3);
-    const used = ADV.filter(a => new RegExp('\\b' + a + '\\b', 'i').test(area.value));
-    if (sentences.length < 5 || used.length < 3) {
-      return {
-        ok: false, focus: area,
-        msg: `You wrote ${sentences.length} sentence(s) with ${used.length} different adverb(s). You need at least 5 sentences and 3 different adverbs of frequency.`,
-      };
-    }
-    return { ok: true, msg: `Great writing! ${sentences.length} sentences, ${used.length} different adverbs ✔` };
-  },
-};
-
 function send(id) {
-  if (FREE[id]) return sendFree(id);
   const cfg = ACTS[id];
   const sec = document.getElementById(id);
   const scoreEl = sec.querySelector('.score');
@@ -746,24 +667,6 @@ function send(id) {
   playGame(id);
 }
 
-function sendFree(id) {
-  const sec = document.getElementById(id);
-  const scoreEl = sec.querySelector('.score');
-  const res = FREE[id](sec);
-  if (!res.ok) {
-    scoreEl.classList.add('warn');
-    scoreEl.textContent = res.msg;
-    res.focus.scrollIntoView({ block: 'center', behavior: reducedMotion ? 'auto' : 'smooth' });
-    return;
-  }
-  sec.querySelectorAll('select, textarea').forEach(x => x.disabled = true);
-  scoreEl.classList.remove('warn');
-  scoreEl.textContent = res.msg;
-  passed.add(id);
-  sec.querySelector('[data-check]').textContent = GAME_LABEL[FLOW[id].game];
-  playGame(id);
-}
-
 function playGame(id) {
   const flow = FLOW[id];
   GAMES[flow.game](() => {
@@ -771,8 +674,7 @@ function playGame(id) {
     btn.disabled = true;
     btn.textContent = 'Sent ✔';
     const last = !flow.unlock.length;
-    if (scores[id]) celebrate(cheerFor(scores[id].right, scores[id].total, last));
-    else celebrate(cheerFor(1, 1, last, true));
+    celebrate(cheerFor(scores[id].right, scores[id].total, last));
     if (last) showFinish(); else unlock(flow.unlock);
   });
 }
@@ -976,58 +878,6 @@ function balloonGame(onDone) {
   });
 }
 
-// pizza: every click is a big bite
-function pizzaGame(onDone) {
-  const clicks = 4;
-  const g = openGate('Eat the pizza! 🍕', `Click the pizza ${clicks} times to take bites!`);
-  const btn = el('button', { type: 'button', class: 'cookie pizza', 'aria-label': 'Pizza' }, '<span class="emo">🍕</span>');
-  g.stage.appendChild(btn);
-  g.count.textContent = `0 / ${clicks}`;
-  btn.focus();
-
-  const emo = btn.querySelector('.emo');
-  let n = 0;
-  btn.addEventListener('click', () => {
-    n++;
-    g.count.textContent = `${n} / ${clicks}`;
-    emo.style.setProperty('--e', (n * 360 / clicks) + 'deg');
-    if (n < clicks) { shake(btn); return; }
-    g.stage.textContent = '';
-    g.stage.appendChild(el('span', { class: 'reveal' }, '😋'));
-    g.title.textContent = 'YUM! 😋';
-    g.hint.textContent = 'Delicious! Loading the next activity…';
-    g.count.textContent = '';
-    g.finish(onDone, 1600);
-  });
-}
-
-// rocket: countdown 3, 2, 1 and blast off
-function rocketGame(onDone) {
-  const clicks = 3;
-  const g = openGate('Launch the rocket! 🚀', `Click the rocket ${clicks} times for the countdown!`);
-  g.stage.classList.add('sky');
-  const btn = el('button', { type: 'button', class: 'rocket', 'aria-label': 'Rocket' }, '<span class="emo">🚀</span>');
-  g.stage.appendChild(btn);
-  g.count.textContent = `${clicks}…`;
-  btn.focus();
-
-  let n = 0;
-  btn.addEventListener('click', () => {
-    n++;
-    if (n < clicks) {
-      g.count.textContent = `${clicks - n}…`;
-      shake(btn);
-      return;
-    }
-    btn.classList.add('launch');
-    g.title.textContent = 'BLAST OFF! 🚀';
-    g.hint.textContent = 'You did it! Loading your results…';
-    g.count.textContent = '';
-    confetti();
-    g.finish(onDone, 2200);
-  });
-}
-
 const GAMES = {
   cookie: cb => smashGame({ emoji: '🍪', name: 'cookie', clicks: 5, pieces: 2 }, cb),
   broccoli: cb => smashGame({ emoji: '🥦', name: 'broccoli', clicks: 4, pieces: 4 }, cb),
@@ -1035,8 +885,6 @@ const GAMES = {
   snake: snakeGame,
   egg: cb => smashGame({ emoji: '🥚', name: 'egg', verb: 'Hatch', clicks: 3, pieces: 2, reveal: '🐣', doneTitle: "It's a chick! 🐣" }, cb),
   balloon: balloonGame,
-  pizza: pizzaGame,
-  rocket: rocketGame,
 };
 
 /* ---------- celebration ---------- */
@@ -1046,11 +894,10 @@ const CHEERS = [
   { e: '🛸', a: 'fly' }, { e: '🍩', a: 'spin' },
 ];
 
-function cheerFor(right, total, allDone, free = false) {
+function cheerFor(right, total, allDone) {
   const pick = CHEERS[Math.floor(Math.random() * CHEERS.length)];
   const n = firstName();
   if (allDone) return { ...pick, e: '🏆', a: 'bounce', title: `ALL DONE, ${n}!`, sub: 'You finished everything!' };
-  if (free) return { ...pick, title: `Great work, ${n}!`, sub: 'Activity completed!' };
   if (right === total) return { ...pick, title: `PERFECT, ${n}!`, sub: '100% correct!' };
   if (right / total >= 0.7) return { ...pick, title: `Great job, ${n}!`, sub: 'Check the answers below.' };
   return { ...pick, title: `Nice try, ${n}!`, sub: 'Look at the correct answers below.' };
@@ -1124,12 +971,6 @@ ORDER.forEach((id, i) => {
 // word bank for activity 6 (alphabetical so it doesn't give the order away)
 const bank = ['apple', 'bread', 'broccoli', 'carrot', 'cheese', 'chocolate', 'cookie', 'fish', 'juice', 'milk', 'pizza', 'sandwich'];
 document.getElementById('bank6').innerHTML = bank.map(w => `<span class="chip">${w}</span>`).join('');
-
-// survey table
-const adverbOpts = '<option value="">…</option>' + ADV.map(a => `<option>${a}</option>`).join('');
-document.getElementById('survey-body').innerHTML = SURVEY.map(s =>
-  `<tr><td>How often do you ${s}?</td><td><select>${adverbOpts}</select></td><td><select>${adverbOpts}</select></td></tr>`
-).join('');
 </script>
 </body>
 </html>
