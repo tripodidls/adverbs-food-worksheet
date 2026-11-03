@@ -12,13 +12,14 @@
     --muted: #6b6878;
     --accent: #ff7a3d;
     --accent-dark: #d9531a;
-    --blue: #2f80ed;
+    --on-accent: #ffffff;
     --green: #1f9d55;
     --red: #d64545;
     --line: #f0e3cf;
     --soft: #fff1dc;
   }
   * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
   body {
     margin: 0;
     font-family: "Trebuchet MS", "Segoe UI", Arial, sans-serif;
@@ -29,41 +30,77 @@
   }
   .wrap { max-width: 900px; margin: 0 auto; padding: 24px 16px 60px; }
   header.hero {
-    background: linear-gradient(135deg, #ff9a4d, #ff6b6b);
-    color: #fff;
+    background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+    color: var(--on-accent);
     border-radius: 24px;
     padding: 28px 28px 24px;
     box-shadow: 0 6px 0 var(--accent-dark);
   }
   .hero h1 { margin: 0 0 6px; font-size: 2rem; line-height: 1.15; }
   .hero p { margin: 0; opacity: .95; }
-  .toolbar {
+  .welcome {
+    margin-top: 18px; background: rgba(255,255,255,.92); color: var(--ink);
+    border-radius: 16px; padding: 14px 18px;
+  }
+  .welcome p { margin: 2px 0; opacity: 1; }
+  .welcome .es { font-weight: bold; font-size: 1.1rem; }
+  .welcome .en { color: var(--muted); font-style: italic; }
+
+  /* registration */
+  #register h2 { margin-top: 0; }
+  .field { margin: 14px 0; }
+  .field > label.lbl { display: block; font-weight: bold; margin-bottom: 4px; }
+  .field small { display: block; color: var(--muted); }
+  #reg-name {
+    font: inherit; width: 100%; padding: 10px 14px; border: 2px solid #d9cbb4;
+    border-radius: 12px; background: #fff; color: var(--ink);
+  }
+  .swatches { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 6px; }
+  .sw { position: relative; cursor: pointer; text-align: center; font-size: .9rem; }
+  .sw input { position: absolute; opacity: 0; inset: 0; cursor: pointer; }
+  .sw .dot {
+    display: block; width: 52px; height: 52px; border-radius: 50%;
+    border: 4px solid #fff; box-shadow: 0 0 0 2px #cfc3ae; margin: 0 auto 2px;
+    transition: transform .15s;
+  }
+  .sw:hover .dot { transform: scale(1.1); }
+  .sw input:checked + .dot { box-shadow: 0 0 0 5px var(--ink); transform: scale(1.12); }
+  .sw input:focus-visible + .dot { outline: 3px solid #2f80ed; outline-offset: 3px; }
+  .reg-error { color: var(--red); font-weight: bold; min-height: 1.5em; margin: 6px 0; }
+  button, .btn {
+    font: inherit; font-weight: bold; cursor: pointer;
+    border: 0; border-radius: 12px; padding: 10px 18px;
+    background: var(--accent); color: var(--on-accent);
+  }
+  button.secondary { background: #fff; color: var(--ink); border: 2px solid var(--line); }
+  button:hover:not(:disabled) { filter: brightness(1.07); }
+  button:disabled { opacity: .55; cursor: default; }
+  button.big { font-size: 1.2rem; padding: 12px 26px; }
+
+  .greet {
     display: flex; flex-wrap: wrap; gap: 12px; align-items: center;
     margin: 18px 0 8px;
   }
-  .toolbar label { font-weight: bold; }
-  .toolbar input[type=text] {
-    font: inherit; padding: 8px 12px; border: 2px solid var(--line);
-    border-radius: 12px; min-width: 200px; background: #fff; color: var(--ink);
+  .greet .who {
+    background: #fff; border: 2px solid var(--line); border-radius: 999px;
+    padding: 6px 16px; font-weight: bold;
   }
+  .greet .colordot {
+    display: inline-block; width: 16px; height: 16px; border-radius: 50%;
+    vertical-align: -2px; margin: 0 4px 0 2px; border: 2px solid #fff; box-shadow: 0 0 0 1px #999;
+  }
+  .greet .total { margin-left: auto; }
   .total {
-    margin-left: auto; background: #fff; border: 2px solid var(--line);
+    background: #fff; border: 2px solid var(--line);
     border-radius: 999px; padding: 6px 16px; font-weight: bold;
   }
-  button, .btn {
-    font: inherit; font-weight: bold; cursor: pointer;
-    border: 0; border-radius: 12px; padding: 9px 16px;
-    background: var(--blue); color: #fff;
-  }
-  button.secondary { background: #fff; color: var(--ink); border: 2px solid var(--line); }
-  button:hover { filter: brightness(1.07); }
   section.card {
     background: var(--card); border-radius: 20px; padding: 22px 24px;
     margin-top: 22px; border: 2px solid var(--line);
   }
   section.card h2 { margin: 0 0 4px; font-size: 1.4rem; }
   section.card h2 .num {
-    display: inline-block; background: var(--accent); color: #fff;
+    display: inline-block; background: var(--accent); color: var(--on-accent);
     width: 36px; height: 36px; line-height: 36px; text-align: center;
     border-radius: 50%; margin-right: 8px; font-size: 1.1rem;
   }
@@ -79,10 +116,9 @@
     color: #fff; font-weight: bold;
   }
   .scale small { display: block; font-weight: normal; opacity: .95; }
-  .s1 { background: #1f9d55; } .s2 { background: #4caf50; color: #1d3b1f; }
-  .s3 { background: #c0ca33; color: #3b3d0a; } .s4 { background: #ffb300; color: #4a3500; }
-  .s5 { background: #ff7a3d; } .s6 { background: #d64545; }
-  .s2 { color: #fff; }
+  .s1 { background: #1f9d55; } .s2 { background: #4caf50; }
+  .s3 { background: #8a9a00; } .s4 { background: #b87900; }
+  .s5 { background: #e0611f; } .s6 { background: #d64545; }
   .reading {
     background: #fffdf7; border: 2px dashed #e8c99b; border-radius: 16px;
     padding: 14px 18px; margin-bottom: 16px;
@@ -93,6 +129,7 @@
   ol.items li { margin: 12px 0; padding: 6px 8px; border-radius: 10px; }
   ol.items li.ok { background: #e6f6ec; }
   ol.items li.bad { background: #fdeaea; }
+  ol.items li.missing { outline: 3px dashed var(--red); }
   ol.grid { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; }
   ol.grid li { margin: 0; text-align: center; border: 2px solid var(--line); }
   ol.grid .emoji { font-size: 2.4rem; display: block; }
@@ -111,8 +148,10 @@
   .bank { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
   .actions { margin-top: 14px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
   .score { font-weight: bold; }
-  .key { display: none; color: var(--green); font-weight: bold; margin-left: 8px; }
-  body.show-key .key { display: inline; }
+  .score.warn { color: var(--red); }
+  .key { display: none; margin-top: 4px; font-weight: bold; color: var(--green); }
+  li.bad .key { color: var(--red); }
+  li.done .key { display: block; }
   table.survey { border-collapse: collapse; width: 100%; font-size: .95rem; }
   table.survey th, table.survey td { border: 2px solid var(--line); padding: 6px 8px; text-align: center; }
   table.survey td:first-child { text-align: left; }
@@ -122,15 +161,48 @@
     resize: vertical;
   }
   .stems li { margin: 6px 0; }
+  .finish { text-align: center; background: var(--soft); }
+  .finish .trophy { font-size: 4rem; display: block; animation: bounce 1s ease-in-out infinite; }
   footer { text-align: center; color: var(--muted); margin-top: 30px; font-size: .9rem; }
+
+  /* celebration */
+  #cheer {
+    position: fixed; inset: 0; display: flex; align-items: center; justify-content: center;
+    background: rgba(30,25,40,.35); z-index: 50; cursor: pointer; padding: 16px;
+  }
+  #cheer .box {
+    background: #fff; border-radius: 28px; padding: 24px 34px 22px; text-align: center;
+    box-shadow: 0 10px 0 rgba(0,0,0,.18); max-width: 420px; animation: pop .45s cubic-bezier(.2,1.6,.4,1);
+  }
+  #cheer .big { font-size: 6rem; line-height: 1.1; display: block; }
+  #cheer h3 { margin: 6px 0 2px; font-size: 1.6rem; color: var(--accent-dark); }
+  #cheer p { margin: 2px 0; color: var(--muted); }
+  .a-bounce { animation: bounce .7s ease-in-out infinite; }
+  .a-spin { animation: spin 1.1s ease-in-out infinite; }
+  .a-wiggle { animation: wiggle .5s ease-in-out infinite; }
+  .a-fly { animation: fly 1.2s ease-in-out infinite; }
+  @keyframes pop { from { transform: scale(.3); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+  @keyframes bounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-18px); } }
+  @keyframes spin { 0% { transform: rotate(0) scale(1); } 50% { transform: rotate(180deg) scale(1.2); } 100% { transform: rotate(360deg) scale(1); } }
+  @keyframes wiggle { 0%,100% { transform: rotate(-12deg); } 50% { transform: rotate(12deg); } }
+  @keyframes fly { 0%,100% { transform: translate(-14px, 10px) rotate(-8deg); } 50% { transform: translate(14px, -14px) rotate(8deg); } }
+  .confetti { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 60; }
+  .confetti span {
+    position: absolute; top: -50px; animation: fall linear forwards;
+  }
+  @keyframes fall { to { transform: translateY(110vh) rotate(540deg); } }
+  @media (prefers-reduced-motion: reduce) {
+    .a-bounce, .a-spin, .a-wiggle, .a-fly, .finish .trophy, #cheer .box { animation: none; }
+  }
+
   @media (max-width: 560px) {
     body { font-size: 16px; }
     .hero h1 { font-size: 1.5rem; }
-    .total { margin-left: 0; }
+    .greet .total { margin-left: 0; }
   }
   @media print {
     body { background: #fff; font-size: 14px; }
-    .toolbar button, .actions, .no-print { display: none !important; }
+    .actions button, .no-print, #cheer, .confetti { display: none !important; }
     section.card { break-inside: avoid; border-color: #bbb; }
     header.hero { box-shadow: none; color: #000; background: #fff; border: 2px solid #000; }
   }
@@ -142,14 +214,36 @@
   <header class="hero">
     <h1>🍎 Food &amp; Drinks 🥛<br>How often do you…?</h1>
     <p>Adverbs of frequency: always · usually · often · sometimes · rarely · never</p>
+    <div class="welcome">
+      <p class="es">¡Bienvenidos, mis queridos alumnos de 5°B! Estas son actividades para hacer de a dos. 👫</p>
+      <p class="en">Welcome, my dear students of 5°B! These are activities to do in pairs.</p>
+    </div>
   </header>
 
-  <div class="toolbar">
-    <label for="name">Name:</label>
-    <input type="text" id="name" placeholder="Write your name">
-    <button class="secondary no-print" id="btn-key">👩‍🏫 Teacher: show / hide answers</button>
-    <button class="secondary no-print" onclick="window.print()">🖨️ Print</button>
+  <!-- REGISTRATION -->
+  <section class="card" id="register">
+    <h2>✏️ Before we start · Antes de empezar</h2>
+    <form id="reg-form" novalidate>
+      <div class="field">
+        <label class="lbl" for="reg-name">Full name · Nombre completo</label>
+        <input id="reg-name" type="text" autocomplete="off" placeholder="e.g. María López">
+        <small>Si lo hacen de a dos, escriban los dos nombres. · If you work in pairs, write both names.</small>
+      </div>
+      <div class="field">
+        <span class="lbl" id="color-lbl">Favorite color · Color favorito</span>
+        <div class="swatches" role="radiogroup" aria-labelledby="color-lbl" id="swatches"></div>
+      </div>
+      <div class="reg-error" id="reg-error" role="alert"></div>
+      <button type="submit" class="big">Let's go! · ¡Vamos! 🚀</button>
+    </form>
+  </section>
+
+  <div id="app" hidden>
+
+  <div class="greet">
+    <span class="who" id="who"></span>
     <span class="total" id="total">⭐ Total: 0 / 0</span>
+    <button class="secondary no-print" onclick="window.print()">🖨️ Print</button>
   </div>
 
   <section class="card">
@@ -169,6 +263,8 @@
       ✅ <i>after</i> the verb <b>to be</b> (am / is / are): He is <mark>usually</mark> hungry. / We are <mark>often</mark> thirsty.<br>
       ❓ Question: <b>How often</b> do you drink milk? → I <mark>drink</mark> milk <mark>every day</mark>. / I <mark>sometimes</mark> drink milk.
     </div>
+    <p class="instr" style="margin-top:12px">📨 When you finish an activity, press <b>Send</b> to see the correct answers!<br>
+    Cuando terminen una actividad, toquen <b>Send</b> para ver las respuestas correctas.</p>
   </section>
 
   <!-- 1 READING -->
@@ -186,7 +282,7 @@
       In the evening, I <mark>sometimes</mark> drink hot chocolate before bed.</p>
     </div>
     <ol class="items"></ol>
-    <div class="actions"><button data-check="a1">Check ✔</button><button class="secondary" data-reset="a1">Try again ↺</button><span class="score"></span></div>
+    <div class="actions"><button data-check="a1">Send ✔</button><span class="score"></span></div>
   </section>
 
   <!-- 2 TRUE / FALSE -->
@@ -194,7 +290,7 @@
     <h2><span class="num">2</span> True or False?</h2>
     <p class="instr">Look at Mia's text again. Are the sentences <b>true</b> or <b>false</b>?</p>
     <ol class="items"></ol>
-    <div class="actions"><button data-check="a2">Check ✔</button><button class="secondary" data-reset="a2">Try again ↺</button><span class="score"></span></div>
+    <div class="actions"><button data-check="a2">Send ✔</button><span class="score"></span></div>
   </section>
 
   <!-- 3 FILL THE GAP -->
@@ -202,7 +298,7 @@
     <h2><span class="num">3</span> Choose the adverb</h2>
     <p class="instr">Read the clue in brackets and choose the best adverb for each sentence.</p>
     <ol class="items"></ol>
-    <div class="actions"><button data-check="a3">Check ✔</button><button class="secondary" data-reset="a3">Try again ↺</button><span class="score"></span></div>
+    <div class="actions"><button data-check="a3">Send ✔</button><span class="score"></span></div>
   </section>
 
   <!-- 4 WORD ORDER (CHOICE) -->
@@ -210,7 +306,7 @@
     <h2><span class="num">4</span> Where does it go?</h2>
     <p class="instr">Which sentence has the adverb in the correct place? Remember: <b>before</b> a normal verb, <b>after</b> <i>am / is / are</i>.</p>
     <ol class="items"></ol>
-    <div class="actions"><button data-check="a4">Check ✔</button><button class="secondary" data-reset="a4">Try again ↺</button><span class="score"></span></div>
+    <div class="actions"><button data-check="a4">Send ✔</button><span class="score"></span></div>
   </section>
 
   <!-- 5 UNSCRAMBLE -->
@@ -218,7 +314,7 @@
     <h2><span class="num">5</span> Put the words in order</h2>
     <p class="instr">Write the sentence. Don't forget the capital letter and the full stop (.) or question mark (?).</p>
     <ol class="items"></ol>
-    <div class="actions"><button data-check="a5">Check ✔</button><button class="secondary" data-reset="a5">Try again ↺</button><span class="score"></span></div>
+    <div class="actions"><button data-check="a5">Send ✔</button><span class="score"></span></div>
   </section>
 
   <!-- 6 VOCAB -->
@@ -227,18 +323,18 @@
     <p class="instr">Look at the pictures and write the word. Use the word bank.</p>
     <div class="bank" id="bank6"></div>
     <ol class="items grid"></ol>
-    <div class="actions"><button data-check="a6">Check ✔</button><button class="secondary" data-reset="a6">Try again ↺</button><span class="score"></span></div>
+    <div class="actions"><button data-check="a6">Send ✔</button><span class="score"></span></div>
   </section>
 
   <!-- 7 SURVEY -->
   <section class="card" id="a7">
     <h2><span class="num">7</span> Class survey: How often…?</h2>
-    <p class="instr">Fill in the table about <b>you</b>. Then ask a friend: <i>"How often do you eat…?"</i> and complete the last column.</p>
+    <p class="instr">Fill in the table about <b>you</b>. Then ask your partner: <i>"How often do you eat…?"</i> and complete the last column.</p>
     <table class="survey">
-      <thead><tr><th>How often do you…?</th><th>Me</th><th>My friend</th></tr></thead>
+      <thead><tr><th>How often do you…?</th><th>Me</th><th>My partner</th></tr></thead>
       <tbody id="survey-body"></tbody>
     </table>
-    <p class="instr no-print" style="margin-top:10px">This activity is not marked. Speak with your friend! 🗣️</p>
+    <p class="instr no-print" style="margin-top:10px">This activity is not marked. Speak with your partner! 🗣️</p>
   </section>
 
   <!-- 8 WRITING -->
@@ -255,11 +351,33 @@
     <textarea placeholder="Write here…"></textarea>
   </section>
 
-  <footer>Made for primary English class · Level A2 · Ages 10–11</footer>
+  <section class="card finish" id="finish" hidden>
+    <span class="trophy">🏆</span>
+    <h2 id="finish-title"></h2>
+    <p id="finish-score"></p>
+    <p class="instr">Don't forget activities 7 and 8! · ¡No se olviden de las actividades 7 y 8!</p>
+  </section>
+
+  </div><!-- /app -->
+
+  <footer>Made for 5°B · Primary English class · Level A2 · Ages 10–11</footer>
 </div>
+
+<div id="cheer" hidden role="status" aria-live="polite"></div>
 
 <script>
 const ADV = ['always', 'usually', 'often', 'sometimes', 'rarely', 'never'];
+
+const COLORS = [
+  { id: 'red',    main: '#e53935', dark: '#a8231f', on: '#ffffff' },
+  { id: 'orange', main: '#fb8c00', dark: '#c25e00', on: '#2b1700' },
+  { id: 'yellow', main: '#fdd835', dark: '#c9a400', on: '#3a2f00' },
+  { id: 'green',  main: '#43a047', dark: '#2a6f2e', on: '#ffffff' },
+  { id: 'blue',   main: '#1e88e5', dark: '#145fa8', on: '#ffffff' },
+  { id: 'purple', main: '#8e24aa', dark: '#5f1675', on: '#ffffff' },
+  { id: 'pink',   main: '#ec407a', dark: '#b52358', on: '#ffffff' },
+  { id: 'brown',  main: '#8d6e63', dark: '#5d4037', on: '#ffffff' },
+];
 
 // type: select | tf | choice | text
 const ACTS = {
@@ -317,6 +435,8 @@ const SURVEY = ['eat fruit', 'eat vegetables', 'drink milk', 'drink water', 'eat
 
 const norm = s => (s || '').toLowerCase().replace(/[.,!?]/g, '').replace(/\s+/g, ' ').trim();
 const scores = {};
+const student = { name: '', color: null };
+const reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 function el(tag, attrs = {}, html = '') {
   const e = document.createElement(tag);
@@ -325,12 +445,56 @@ function el(tag, attrs = {}, html = '') {
   return e;
 }
 
+/* ---------- registration ---------- */
+const swatches = document.getElementById('swatches');
+COLORS.forEach(c => {
+  const lab = el('label', { class: 'sw' },
+    `<input type="radio" name="color" value="${c.id}"><span class="dot" style="background:${c.main}"></span>${c.id}`);
+  swatches.appendChild(lab);
+});
+
+document.getElementById('reg-form').addEventListener('submit', ev => {
+  ev.preventDefault();
+  const err = document.getElementById('reg-error');
+  const name = document.getElementById('reg-name').value.trim().replace(/\s+/g, ' ');
+  const picked = document.querySelector('input[name=color]:checked');
+  if (name.split(' ').length < 2 || name.length < 5) {
+    err.textContent = 'Write your full name (name and surname). · Escriban su nombre completo (nombre y apellido).';
+    return;
+  }
+  if (!picked) {
+    err.textContent = 'Choose your favorite color. · Elijan su color favorito.';
+    return;
+  }
+  err.textContent = '';
+  student.name = name;
+  student.color = COLORS.find(c => c.id === picked.value);
+  applyColor(student.color);
+  const who = document.getElementById('who');
+  who.textContent = '';
+  who.append('👋 ' + name + ' · ');
+  who.appendChild(el('span', { class: 'colordot', style: `background:${student.color.main}` }));
+  who.append(student.color.id);
+  document.getElementById('register').hidden = true;
+  document.getElementById('app').hidden = false;
+  window.scrollTo({ top: 0 });
+  celebrate({ e: '👋', a: 'wiggle', title: 'Hello, ' + firstName() + '!', sub: '¡Hola! Let\'s start! · ¡Empecemos!' });
+});
+
+function applyColor(c) {
+  const r = document.documentElement.style;
+  r.setProperty('--accent', c.main);
+  r.setProperty('--accent-dark', c.dark);
+  r.setProperty('--on-accent', c.on);
+}
+const firstName = () => student.name.split(' ')[0];
+
+/* ---------- activities ---------- */
 function buildActivity(id) {
   const cfg = ACTS[id];
   const ol = document.querySelector('#' + id + ' ol.items');
   cfg.items.forEach((it, i) => {
     const li = el('li');
-    let ctrl = '';
     let keyText = '';
     if (cfg.type === 'select') {
       const opts = cfg.options.map(o => `<option value="${o}">${o}</option>`).join('');
@@ -341,7 +505,7 @@ function buildActivity(id) {
       li.innerHTML = `${it.q}<br>
         <label class="opt"><input type="radio" name="${id}-${i}" value="true"> True ✅</label>
         <label class="opt"><input type="radio" name="${id}-${i}" value="false"> False ❌</label>`;
-      keyText = it.a[0] + (it.note ? ' – ' + it.note : '');
+      keyText = it.a[0] === 'true' ? 'True' : 'False – ' + it.note;
     } else if (cfg.type === 'choice') {
       li.innerHTML = it.opts.map((o, k) =>
         `<label class="opt"><input type="radio" name="${id}-${i}" value="${k}"> ${String.fromCharCode(97 + k)}) ${o}</label>`
@@ -357,7 +521,8 @@ function buildActivity(id) {
         keyText = it.a[0];
       }
     }
-    li.appendChild(el('span', { class: 'key' }, '→ ' + keyText));
+    li.appendChild(el('div', { class: 'key' }, ''));
+    li.querySelector('.key').dataset.text = keyText;
     ol.appendChild(li);
   });
 }
@@ -371,34 +536,43 @@ function getValue(li) {
   return t ? t.value : '';
 }
 
-function check(id) {
+function send(id) {
   const cfg = ACTS[id];
-  const lis = document.querySelectorAll('#' + id + ' ol.items > li');
+  const sec = document.getElementById(id);
+  const scoreEl = sec.querySelector('.score');
+  const lis = [...sec.querySelectorAll('ol.items > li')];
+
+  lis.forEach(li => li.classList.remove('missing'));
+  const empty = lis.filter(li => !norm(getValue(li)));
+  if (empty.length) {
+    empty.forEach(li => li.classList.add('missing'));
+    scoreEl.classList.add('warn');
+    scoreEl.textContent = 'Answer all the questions first! · ¡Respondan todas las preguntas primero!';
+    empty[0].scrollIntoView({ block: 'center', behavior: reducedMotion ? 'auto' : 'smooth' });
+    return;
+  }
+
   let right = 0;
   lis.forEach((li, i) => {
-    const v = norm(getValue(li));
-    const ok = cfg.items[i].a.map(norm).includes(v);
-    li.classList.remove('ok', 'bad');
-    if (v) li.classList.add(ok ? 'ok' : 'bad');
-    else li.classList.add('bad');
+    const ok = cfg.items[i].a.map(norm).includes(norm(getValue(li)));
     if (ok) right++;
+    li.classList.add(ok ? 'ok' : 'bad', 'done');
+    const key = li.querySelector('.key');
+    key.textContent = (ok ? '✓ Correct! ' : '✗ Correct answer: ') + key.dataset.text;
+    li.querySelectorAll('select, input').forEach(x => x.disabled = true);
   });
-  scores[id] = { right, total: lis.length };
-  const msg = right === lis.length ? '🎉 Perfect!' : right >= lis.length * 0.7 ? '👍 Good job!' : '💪 Try again!';
-  document.querySelector('#' + id + ' .score').textContent = `${right} / ${lis.length}  ${msg}`;
-  updateTotal();
-}
 
-function reset(id) {
-  document.querySelectorAll('#' + id + ' ol.items > li').forEach(li => {
-    li.classList.remove('ok', 'bad');
-    li.querySelectorAll('select').forEach(s => s.value = '');
-    li.querySelectorAll('input[type=radio]').forEach(r => r.checked = false);
-    li.querySelectorAll('input[type=text]').forEach(t => t.value = '');
-  });
-  document.querySelector('#' + id + ' .score').textContent = '';
-  delete scores[id];
+  scores[id] = { right, total: lis.length };
+  scoreEl.classList.remove('warn');
+  scoreEl.textContent = `${right} / ${lis.length}`;
+  const btn = sec.querySelector('[data-check]');
+  btn.disabled = true;
+  btn.textContent = 'Sent ✔ · Enviado';
   updateTotal();
+
+  const allDone = Object.keys(scores).length === Object.keys(ACTS).length;
+  celebrate(cheerFor(right, lis.length, allDone));
+  if (allDone) showFinish();
 }
 
 function updateTotal() {
@@ -407,12 +581,79 @@ function updateTotal() {
   document.getElementById('total').textContent = `⭐ Total: ${got} / ${all}`;
 }
 
+function showFinish() {
+  const all = Object.keys(ACTS).reduce((n, id) => n + ACTS[id].items.length, 0);
+  const got = Object.values(scores).reduce((n, s) => n + s.right, 0);
+  document.getElementById('finish-title').textContent = `Well done, ${student.name}! · ¡Bien hecho!`;
+  document.getElementById('finish-score').textContent = `Your score: ${got} / ${all}`;
+  document.getElementById('finish').hidden = false;
+}
+
+/* ---------- celebration ---------- */
+const CHEERS = [
+  { e: '🦄', a: 'bounce' }, { e: '🚀', a: 'fly' }, { e: '🎉', a: 'spin' }, { e: '🐶', a: 'wiggle' },
+  { e: '🍕', a: 'spin' }, { e: '🌈', a: 'bounce' }, { e: '🤩', a: 'wiggle' }, { e: '🐙', a: 'wiggle' },
+  { e: '🛸', a: 'fly' }, { e: '🍩', a: 'spin' },
+];
+
+function cheerFor(right, total, allDone) {
+  const pick = CHEERS[Math.floor(Math.random() * CHEERS.length)];
+  const n = firstName();
+  if (allDone) return { ...pick, e: '🏆', a: 'bounce', title: `ALL DONE, ${n}!`, sub: '¡Terminaron todo! · You finished everything!' };
+  if (right === total) return { ...pick, title: `PERFECT, ${n}!`, sub: '¡PERFECTO! · 100%' };
+  if (right / total >= 0.7) return { ...pick, title: `Great job, ${n}!`, sub: '¡Muy bien! · Check the answers below.' };
+  return { ...pick, title: `Nice try, ${n}!`, sub: '¡Buen intento! · Look at the correct answers below.' };
+}
+
+function confetti() {
+  if (reducedMotion) return;
+  const box = el('div', { class: 'confetti' });
+  const emojis = ['🎉', '⭐', '✨', '🍎', '🥛', '🍕', '🥕', '🍪', '🧃'];
+  const colors = COLORS.map(c => c.main);
+  for (let i = 0; i < 60; i++) {
+    const s = document.createElement('span');
+    if (i % 2) {
+      s.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      s.style.fontSize = (18 + Math.random() * 18) + 'px';
+    } else {
+      s.style.width = s.style.height = (8 + Math.random() * 8) + 'px';
+      s.style.background = colors[Math.floor(Math.random() * colors.length)];
+      s.style.borderRadius = Math.random() > .5 ? '50%' : '2px';
+    }
+    s.style.left = Math.random() * 100 + '%';
+    s.style.animationDuration = (2 + Math.random() * 2.2) + 's';
+    s.style.animationDelay = (Math.random() * .6) + 's';
+    box.appendChild(s);
+  }
+  document.body.appendChild(box);
+  setTimeout(() => box.remove(), 5200);
+}
+
+let cheerTimer;
+function celebrate(c) {
+  const cheer = document.getElementById('cheer');
+  cheer.textContent = '';
+  const box = el('div', { class: 'box' });
+  const big = el('span', { class: 'big a-' + c.a });
+  big.textContent = c.e;
+  const h = el('h3'); h.textContent = c.title;
+  const p = el('p'); p.textContent = c.sub;
+  box.append(big, h, p);
+  cheer.appendChild(box);
+  cheer.hidden = false;
+  confetti();
+  clearTimeout(cheerTimer);
+  cheerTimer = setTimeout(() => cheer.hidden = true, 3200);
+}
+document.getElementById('cheer').addEventListener('click', () => {
+  clearTimeout(cheerTimer);
+  document.getElementById('cheer').hidden = true;
+});
+
+/* ---------- init ---------- */
 Object.keys(ACTS).forEach(buildActivity);
 updateTotal();
-
-document.querySelectorAll('[data-check]').forEach(b => b.addEventListener('click', () => check(b.dataset.check)));
-document.querySelectorAll('[data-reset]').forEach(b => b.addEventListener('click', () => reset(b.dataset.reset)));
-document.getElementById('btn-key').addEventListener('click', () => document.body.classList.toggle('show-key'));
+document.querySelectorAll('[data-check]').forEach(b => b.addEventListener('click', () => send(b.dataset.check)));
 
 // word bank for activity 6 (alphabetical so it doesn't give the order away)
 const bank = ['apple', 'bread', 'broccoli', 'carrot', 'cheese', 'chocolate', 'cookie', 'fish', 'juice', 'milk', 'pizza', 'sandwich'];
